@@ -71,7 +71,7 @@ For each signal type, the first row shows the signal with a minimal
 amount of noise, and the last with a maximal amount of noise. We can see
 that adding Brown noise turns the signal into a Random-walk (i.e., a
 Brownian
-motion).](../../studies/complexity_structure/figures/signals-1.png)
+motion).](https://raw.githubusercontent.com/DominiqueMakowski/ComplexityStructure/main/figures/signals-1.png)
 
 The Python script to generate the data can be found at
 **github.com/neuropsychology/NeuroKit/studies/complexity_structure**.
@@ -455,7 +455,7 @@ p2
 ```
 
 ![Dendrogram representing the hierarchical clustering of the complexity
-indices.](../../studies/complexity_structure/figures/clustering-1.png)
+indices.](https://raw.githubusercontent.com/DominiqueMakowski/ComplexityStructure/main/figures/clustering-1.png)
 
 For illustration purposes, we represented the correlation matrix as a
 connectivity graph (see **Figure 4**). We then ran a hierarchical
