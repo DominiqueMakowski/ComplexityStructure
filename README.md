@@ -219,7 +219,7 @@ cor <- get_cor(data, plot=TRUE)
 ```
 
 ![Correlation matrix of complexity
-indices.](../../studies/complexity_structure/figures/correlation-1.png)
+indices.](https://raw.githubusercontent.com/DominiqueMakowski/ComplexityStructure/main/figures/correlation-1.png)
 
 The Pearson correlation analysis revealed that complexity indices,
 despite their multitude and their conceptual specificities, do indeed
@@ -338,7 +338,7 @@ p2 <- order |>
 
 ![Factor loadings and computation times of the complexity indices,
 colored by the factor they represent the
-most.](../../studies/complexity_structure/figures/loadings-1.png)
+most.](https://raw.githubusercontent.com/DominiqueMakowski/ComplexityStructure/main/figures/loadings-1.png)
 
 The agreement procedure for the optimal number of factors suggested that
 the 125 indices can be mapped on a multidimensional space of 14
@@ -412,7 +412,7 @@ p1
 
 ![Correlation network of the complexity indices. Only the links where
 \|r\| \> 0.6 are
-displayed.](../../studies/complexity_structure/figures/ggm-1.png)
+displayed.](https://raw.githubusercontent.com/DominiqueMakowski/ComplexityStructure/main/figures/ggm-1.png)
 
 ``` r
 clust <- data |>
@@ -535,7 +535,7 @@ importance) that maximizes the variance explained. The dotted blue line
 represents the cumulative relative average computation time of the
 selected indices, and shows that FuzzyMSEn and MFDFA indices are the
 most costly
-algorithms.](../../studies/complexity_structure/figures/varexplained-1.png)
+algorithms.](https://raw.githubusercontent.com/DominiqueMakowski/ComplexityStructure/main/figures/varexplained-1.png)
 
 Finally, we visualized the expected value of our selection of indices
 for different types of signals under different conditions of noise (see
