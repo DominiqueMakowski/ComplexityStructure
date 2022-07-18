@@ -1,9 +1,8 @@
 from timeit import default_timer as timer
 
+import neurokit2 as nk
 import numpy as np
 import pandas as pd
-
-import neurokit2 as nk
 
 rez = pd.DataFrame({"Dupa": [1], "Strupa": [2]})
 # Utility function
@@ -183,22 +182,21 @@ def run_benchmark(noise_intensity=0.01):
                 psd = nk.signal_psd(signal_, method="burg")
                 rez = pd.DataFrame(
                     {
-                        "Duration": [np.nan, np.nan, np.nan, np.nan, np.nan],
+                        "Duration": [np.nan, np.nan, np.nan, np.nan],
                         "Result": [
-                            np.nanstd(signal_),
                             noise_intensity,
                             len(signal_),
                             psd["Frequency"].values[psd["Power"].argmax()],
                             np.random.uniform(),
                         ],
-                        "Index": ["SD", "Noise", "Length", "Frequency", "Random"],
-                        "Method": ["np.std", "noise", "len", "psd", "random"],
+                        "Index": ["Noise", "Length", "Frequency", "Random"],
+                        "Method": ["noise", "len", "psd", "random"],
                     }
                 )
 
                 # Methods that rely on discretization
                 # -------------------------------------
-                for x in ["Mean", "Sign", 3, 10, 100]:
+                for x in ["Mean", "Sign"]:
                     rez = pd.concat(
                         [
                             rez,
@@ -216,9 +214,24 @@ def run_benchmark(noise_intensity=0.01):
                             rez,
                             time_function(
                                 signal_,
-                                nk.entropy_shannon,
+                                nk.entropy_rate,
                                 symbolize=x,
-                                index=f"ShanEn ({x})",
+                                index=f"MaxRatEn ({x})",
+                                name="nk_entropy_rate",
+                                kmax=np.arange(1, 71, 1),
+                            ),
+                        ]
+                    )
+
+                for bins in [3, 9, 15]:
+                    rez = pd.concat(
+                        [
+                            rez,
+                            time_function(
+                                signal_,
+                                nk.entropy_shannon,
+                                symbolize=bins,
+                                index=f"ShanEn ({bins})",
                                 name="nk_entropy_shannon",
                             ),
                         ]
@@ -229,8 +242,8 @@ def run_benchmark(noise_intensity=0.01):
                             time_function(
                                 signal_,
                                 nk.entropy_cumulativeresidual,
-                                symbolize=x,
-                                index=f"CREn ({x})",
+                                symbolize=bins,
+                                index=f"CREn ({bins})",
                                 name="nk_entropy_cumulativeresidual",
                             ),
                         ]
@@ -240,10 +253,49 @@ def run_benchmark(noise_intensity=0.01):
                             rez,
                             time_function(
                                 signal_,
-                                nk.entropy_rate,
-                                symbolize=x,
-                                index=f"MaxRatEn ({x})",
-                                name="nk_entropy_rate",
+                                nk.entropy_grid,
+                                index=f"GridEn ({bins})",
+                                name="nk_entropy_grid",
+                                delay=delay,
+                                k=bins,
+                            ),
+                        ]
+                    )
+                    rez = pd.concat(
+                        [
+                            rez,
+                            time_function(
+                                signal_,
+                                nk.entropy_ofentropy,
+                                index=f"EnofEn ({bins})",
+                                name="nk_entropy_ofentropy",
+                                scale=delay,
+                                bins=bins,
+                            ),
+                        ]
+                    )
+                    rez = pd.concat(
+                        [
+                            rez,
+                            time_function(
+                                signal_,
+                                nk.entropy_spectral,
+                                index=f"SPEn ({bins})",
+                                name="entropy_spectral",
+                                bins=bins,
+                            ),
+                        ]
+                    )
+                    rez = pd.concat(
+                        [
+                            rez,
+                            time_function(
+                                signal_,
+                                nk.entropy_phase,
+                                index=f"PhasEn ({bins+1})",
+                                name="nk_entropy_phase",
+                                delay=delay,
+                                k=bins + 1,
                             ),
                         ]
                     )
@@ -286,7 +338,17 @@ def run_benchmark(noise_intensity=0.01):
                         ),
                     ]
                 )
-
+                rez = pd.concat(
+                    [
+                        rez,
+                        time_function(
+                            signal_,
+                            nk.fractal_linelength,
+                            index="LL",
+                            name="nk_fractal_linelength",
+                        ),
+                    ]
+                )
                 rez = pd.concat(
                     [
                         rez,
@@ -394,36 +456,21 @@ def run_benchmark(noise_intensity=0.01):
                         ),
                     ]
                 )
+                # rez = pd.concat(
+                #     [
+                #         rez,
+                #         time_function(
+                #             signal_,
+                #             nk.fractal_tmf,
+                #             index="tMF",
+                #             name="nk_fractal_tmf",
+                #             n=30,
+                #         ),
+                #     ]
+                # )
 
                 # Entropy
                 # ----------
-                for bins in [3, 5, 9]:
-                    rez = pd.concat(
-                        [
-                            rez,
-                            time_function(
-                                signal_,
-                                nk.entropy_ofentropy,
-                                index=f"EnofEn ({bins})",
-                                name="nk_entropy_ofentropy",
-                                scale=10,
-                                bins=bins,
-                            ),
-                        ]
-                    )
-                for bins in [10, 50, 100]:
-                    rez = pd.concat(
-                        [
-                            rez,
-                            time_function(
-                                signal_,
-                                nk.entropy_spectral,
-                                index=f"SPEn ({bins})",
-                                name="entropy_spectral",
-                                c=bins,
-                            ),
-                        ]
-                    )
                 rez = pd.concat(
                     [
                         rez,
@@ -512,17 +559,17 @@ def run_benchmark(noise_intensity=0.01):
                         ),
                     ]
                 )
-                rez = pd.concat(
-                    [
-                        rez,
-                        time_function(
-                            signal_,
-                            nk.entropy_power,
-                            index="PowEn",
-                            name="nk_entropy_power",
-                        ),
-                    ]
-                )
+                # rez = pd.concat(
+                #     [
+                #         rez,
+                #         time_function(
+                #             signal_,
+                #             nk.entropy_power,
+                #             index="PowEn",
+                #             name="nk_entropy_power",
+                #         ),
+                #     ]
+                # )
                 rez = pd.concat(
                     [
                         rez,
@@ -531,58 +578,6 @@ def run_benchmark(noise_intensity=0.01):
                             nk.entropy_distribution,
                             index="DistrEn",
                             name="nk_entropy_distribution",
-                        ),
-                    ]
-                )
-                rez = pd.concat(
-                    [
-                        rez,
-                        time_function(
-                            signal_,
-                            nk.entropy_phase,
-                            index="PhasEn (4)",
-                            name="nk_entropy_phase",
-                            delay=delay,
-                            n=4,
-                        ),
-                    ]
-                )
-                rez = pd.concat(
-                    [
-                        rez,
-                        time_function(
-                            signal_,
-                            nk.entropy_phase,
-                            index="PhasEn (8)",
-                            name="nk_entropy_phase",
-                            delay=delay,
-                            n=8,
-                        ),
-                    ]
-                )
-                rez = pd.concat(
-                    [
-                        rez,
-                        time_function(
-                            signal_,
-                            nk.entropy_grid,
-                            index="GridEn (3)",
-                            name="nk_entropy_grid",
-                            delay=delay,
-                            n=3,
-                        ),
-                    ]
-                )
-                rez = pd.concat(
-                    [
-                        rez,
-                        time_function(
-                            signal_,
-                            nk.entropy_grid,
-                            index="GridEn (10)",
-                            name="nk_entropy_grid",
-                            delay=delay,
-                            n=10,
                         ),
                     ]
                 )
@@ -736,7 +731,7 @@ def run_benchmark(noise_intensity=0.01):
                         time_function(
                             signal_,
                             nk.entropy_range,
-                            index="RangeEn",
+                            index="RangEn",
                             name="entropy_range",
                             delay=delay,
                             dimension=3,
@@ -1120,21 +1115,22 @@ def run_benchmark(noise_intensity=0.01):
                         ),
                     ]
                 )
-                rez = pd.concat(
-                    [
-                        rez,
-                        time_function(
-                            signal_,
-                            nk.entropy_multiscale,
-                            index="FuzzyRCMSEn",
-                            name="nk_entropy_multiscale",
-                            delay=delay,
-                            dimension=3,
-                            method="RCMSEn",
-                            fuzzy=True,
-                        ),
-                    ]
-                )
+                # Identical to RCMSEn
+                # rez = pd.concat(
+                #     [
+                #         rez,
+                #         time_function(
+                #             signal_,
+                #             nk.entropy_multiscale,
+                #             index="FuzzyRCMSEn",
+                #             name="nk_entropy_multiscale",
+                #             delay=delay,
+                #             dimension=3,
+                #             method="RCMSEn",
+                #             fuzzy=True,
+                #         ),
+                #     ]
+                # )
                 # rez = pd.concat(
                 #     [
                 #         rez,
@@ -1168,6 +1164,17 @@ def run_benchmark(noise_intensity=0.01):
 
                 # Other
                 # ----------
+                rez = pd.concat(
+                    [
+                        rez,
+                        time_function(
+                            signal_,
+                            nk.complexity_decorrelation,
+                            index="DT",
+                            name="nk_complexity_decorrelation",
+                        ),
+                    ]
+                )
                 rez = pd.concat(
                     [
                         rez,
@@ -1308,13 +1315,17 @@ def run_benchmark(noise_intensity=0.01):
 # run_benchmark(noise_intensity=0.01)
 out = nk.parallel_run(
     run_benchmark,
-    [{"noise_intensity": i} for i in np.linspace(0.01, 4, 16)],
-    n_jobs=8,
-    verbose=5,
+    [{"noise_intensity": i} for i in np.linspace(0.001, 3, 128)],
+    n_jobs=32,
+    verbose=10,
 )
 
-pd.concat([out[i][0] for i in range(len(out))]).to_csv("data_Signals.csv", index=False)
-pd.concat([out[i][1] for i in range(len(out))]).to_csv("data_Complexity.csv", index=False)
+df_signals = pd.concat([out[i][0] for i in range(len(out))])
+df_complex = pd.concat([out[i][1] for i in range(len(out))])
 
+# df_signals.to_csv("data_Signals.csv", index=False)
+# df_complex.to_csv("data_Complexity.csv", index=False)
+nk.write_csv(df_complex, "data_Complexity", parts=2)
+nk.write_csv(df_signals, "data_Signals", parts=2)
 
 print("FINISHED.")

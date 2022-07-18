@@ -26,7 +26,8 @@ library(tidyverse)
 library(easystats)
 library(patchwork)
 
-df <- read.csv("data_Signals.csv") |>
+df <- read.csv("data_Signals_part1.csv") |>
+  rbind(read.csv("data_Signals_part2.csv")) |> 
   mutate(
     Method = as.factor(Method),
     Noise = as.factor(Noise),
@@ -41,7 +42,7 @@ make_plot <- function(method = "Random-Walk", title = "Random-Walk", color = "re
   df |>
     filter(Method == method) |>
     ggplot(aes(x = Duration, y = Signal)) +
-    geom_line(color = color, size=0.3) +
+    geom_line(color = color, size = 0.3) +
     ggside::geom_ysidedensity(aes(x = stat(density))) +
     facet_grid(Intensity ~ Noise, labeller = label_value) +
     labs(y = NULL, title = title, x = NULL) +
@@ -61,30 +62,32 @@ p2 <- make_plot(method = "lorenz_10_2.5_28", title = "Lorenz (\u03c3=10, \u03B2=
 p3 <- make_plot(method = "lorenz_20_2_30", title = "Lorenz (\u03c3=20, \u03B2=2, \u03C1=30)", color = "#E91E63")
 p4 <- make_plot(method = "oscillatory", title = "Oscillatory", color = "#2196F3")
 p5 <- make_plot(method = "fractal", title = "Fractal", color = "#4CAF50")
+p6 <- make_plot(method = "EEG", title = "EEG", color = "#673AB7")
 
-p1 / p2 / p3 / p4 / p5 + patchwork::plot_annotation(title = "Examples of Simulated Signals", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5)))
+p1 / p2 / p3 / p4 / p5 / p6 + patchwork::plot_annotation(title = "Examples of Simulated Signals", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5)))
 
-rm(df, p1, p2, p3, p4, p5)
+rm(df, p1, p2, p3, p4, p5, p6)
 ```
 
 The Python script to generate the data can be found at 
-**github.com/neuropsychology/NeuroKit/studies/complexity_structure**.
+**github.com/DominiqueMakowski/ComplexityStructure**.
 
+We started by generating 6 types of signals, one random-walk, two oscillatory signals made (with one made of harmonic frequencies that results in a self-repeating - fractal-like - signal), two complex signals derived from Lorenz systems (with parameters [$\sigma = 10, \beta = 2.5, \rho = 28$]; and [$\sigma = 20, \beta = 2, \rho = 30$], respectively) and one EEG-like simulated signal. Each of this signal was iteratively generated at 6 different lengths (ranging from 500 to 3000 by 500 samples). The resulting vectors were standardized and each were added 5 types of $(1/f)^\beta$ noise (namely violet $\beta=-2$, blue $\beta=-1$, white $\beta=0$, pink $\beta=1$, and brown $\beta=2$ noise). Each noise type was added at 64 different intensities (linearly ranging from 0.1 to 4). Examples of generated signals are presented in **Figure 1**.
 
-We started by generating 5 types of signals, one random-walk, two oscillatory signals made (with one made of harmonic frequencies that results in a self-repeating - fractal-like - signal), and two complex signals derived from Lorenz systems (with parameters ($\sigma = 10, \beta = 2.5, \rho = 28$); and ($\sigma = 20, \beta = 2, \rho = 30$), respectively). Each of this signal was iteratively generated at 6 different lengths (ranging from 500 to 3000 by 500 samples). The resulting vectors were standardized and each were added 5 types of $(1/f)^\beta$ noise (namely violet $\beta=-2$, blue $\beta=-1$, white $\beta=0$, pink $\beta=1$, and brown $\beta=2$ noise). Each noise type was added at 48 different intensities (linearly ranging from 0.1 to 4). Examples of generated signals are presented in **Figure 1**.
-
-The combination of these parameters resulted in a total of `r 48*6*5*5` signal iterations. For each of them, we computed 128 complexity indices, and additional basic metrics such as the standard deviation (*SD*), the *length* of the signal and its dominant *frequency*. We also included a *random* number to make sure that our our dimensionality analyses accurately discriminate this unrelated feature. The parameters used (such as the time-delay $\tau$ or the embedding dimension) are documented in the data generation script. For a complete description of the various indices included, please refer to NeuroKit's documentation at **https://neuropsychology.github.io/NeuroKit**.
+The combination of these parameters resulted in a total of `r 64*6*6*5` signal iterations. For each of them, we computed `r length(unique(df$Index))` complexity indices, and additional basic metrics such as the *length* of the signal and its dominant *frequency*. We also included a *random* number to make sure that our our dimensionality analyses accurately discriminate this unrelated feature. The parameters used (such as the time-delay $\tau$ or the embedding dimension) are documented in the data generation script. For a complete description of the various indices included, please refer to NeuroKit's documentation at **https://neuropsychology.github.io/NeuroKit**, as well as to the data generation script.
 
 ## Results
 
 The data analysis script and the data are fully available at 
-**github.com/neuropsychology/NeuroKit/studies/complexity_structure**. 
+**github.com/DominiqueMakowski/ComplexityStructure**. 
 The analysis was performed in R using the *easystats* collection of packages [@correlationArticle; @seeArticle; @parametersArticle; @modelbasedPackage]. As the results are primarily presented in a graphical way via the figures, the code to fully reproduce them is also included.
 
 
 ```{r message=FALSE, warning=FALSE, results='hide', echo=FALSE}
-df <- read.csv("data_Complexity.csv") |>
-  mutate(Method = as.factor(Method))
+df <- read.csv("data_Complexity_part1.csv") |>
+  rbind(read.csv("data_Complexity_part2.csv")) |> 
+  mutate(Method = as.factor(Method),
+         Index = ifelse(Index == "RangeEn", "RangEn", Index))
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -99,7 +102,10 @@ colors <- c(
   "PFD (C)" = "#2196F3",
   "PFD (D)" = "#2196F3",
   "PFD (r)" = "#2196F3",
+  "PFD (Mean)" = "#2196F3",
+  "PFD (Sign)" = "#2196F3",
   "PFD (3)" = "#2196F3",
+  "PFD (5)" = "#2196F3",
   "PFD (10)" = "#2196F3",
   "PFD (100)" = "#2196F3",
   "PFD (1000)" = "#2196F3",
@@ -115,10 +121,22 @@ colors <- c(
   "AttEn" = "#E91E63",
   "PhasEn (4)" = "#E91E63",
   "PhasEn (8)" = "#E91E63",
+  "PhasEn (10)" = "#E91E63",
+  "PhasEn (16)" = "#E91E63",
   "GridEn (3)" = "#E91E63",
+  "GridEn (5)" = "#E91E63",
+  "GridEn (7)" = "#E91E63",
+  "GridEn (9)" = "#E91E63",
   "GridEn (10)" = "#E91E63",
+  "GridEn (15)" = "#E91E63",
   "DiffEn" = "#E91E63",
   "DistrEn" = "#E91E63",
+  "MaxRatEn (Mean)" = "#E91E63",
+  "MaxRatEn (Sign)" = "#E91E63",
+  "MaxRatEn (3)" = "#E91E63",
+  "MaxRatEn (5)" = "#E91E63",
+  "MaxRatEn (10)" = "#E91E63",
+  "MaxRatEn (100)" = "#E91E63",
   "ApEn" = "#E91E63",
   "cApEn" = "#E91E63",
   "PEn" = "#E91E63",
@@ -150,6 +168,7 @@ colors <- c(
   "IncrEn" = "#E91E63",
   "MSIncrEn" = "#E91E63",
   "SlopEn" = "#E91E63",
+  "SlopEn (2)" = "#E91E63",
   "SlopEn (7)" = "#E91E63",
   "MSSlopEn" = "#E91E63",
   "SyDyEn" = "#E91E63",
@@ -157,6 +176,7 @@ colors <- c(
   "MMSyDyEn" = "#E91E63",
   "DispEn" = "#E91E63",
   "DispEn (fluctuation)" = "#E91E63",
+  "RDEn" = "#E91E63",
   "FuzzyMSEn" = "#E91E63",
   "FuzzyCMSEn" = "#E91E63",
   "FuzzyRCMSEn" = "#E91E63",
@@ -167,24 +187,44 @@ colors <- c(
   "ShanEn (C)" = "#E91E63",
   "ShanEn (D)" = "#E91E63",
   "ShanEn (r)" = "#E91E63",
+  "ShanEn (Mean)" = "#E91E63",
+  "ShanEn (Sign)" = "#E91E63",
   "ShanEn (3)" = "#E91E63",
+  "ShanEn (5)" = "#E91E63",
+  "ShanEn (7)" = "#E91E63",
+  "ShanEn (9)" = "#E91E63",
   "ShanEn (10)" = "#E91E63",
+  "ShanEn (15)" = "#E91E63",
   "ShanEn (100)" = "#E91E63",
   "ShanEn (1000)" = "#E91E63",
   "CREn (A)" = "#E91E63",
   "CREn (B)" = "#E91E63",
   "CREn (C)" = "#E91E63",
   "CREn (D)" = "#E91E63",
+  "CREn (Mean)" = "#E91E63",
+  "CREn (Sign)" = "#E91E63",
   "CREn (r)" = "#E91E63",
   "CREn (3)" = "#E91E63",
+  "CREn (5)" = "#E91E63",
+  "CREn (7)" = "#E91E63",
+  "CREn (9)" = "#E91E63",
   "CREn (10)" = "#E91E63",
+  "CREn (15)" = "#E91E63",
   "CREn (100)" = "#E91E63",
   "CREn (1000)" = "#E91E63",
   "EnofEn (3)" = "#E91E63",
   "EnofEn (5)" = "#E91E63",
+  "EnofEn (7)" = "#E91E63",
   "EnofEn (9)" = "#E91E63",
+  "EnofEn (15)" = "#E91E63",
   "RangeEn" = "#E91E63",
+  "RangEn" = "#E91E63",
+  "SPEn (3)" = "#E91E63",
+  "SPEn (5)" = "#E91E63",
+  "SPEn (7)" = "#E91E63",
+  "SPEn (9)" = "#E91E63",
   "SPEn (10)" = "#E91E63",
+  "SPEn (15)" = "#E91E63",
   "SPEn (50)" = "#E91E63",
   "SPEn (100)" = "#E91E63",
   "HEn" = "#E91E63",
@@ -201,7 +241,11 @@ colors <- c(
   "PowEn" = "#FF5722",
   "CD" = "#FF5722",
   "Hjorth" = "#FF5722",
+  "MIG" = "#FF5722",
+  "FC" = "#FF5722",
   "LLE" = "#2196F3",
+  "LL" = "#FF5722",
+  "DT" = "#FF5722",
   "RQA (RecurrenceRate)" = "#4CAF50",
   "RQA (Determinism)" = "#4CAF50",
   "RQA (Laminarity)" = "#4CAF50",
@@ -217,6 +261,7 @@ colors <- c(
   "RQA (WMax)" = "#4CAF50",
   "RQA (WEn)" = "#4CAF50",
   "DFA" = "#4CAF50",
+  "tMF" = "#4CAF50",
   "MFDFA (Fluctuation)" = "#4CAF50",
   "MFDFA (Width)" = "#4CAF50",
   "MFDFA (Peak)" = "#4CAF50",
@@ -238,16 +283,15 @@ colors <- c(
 ```{r message=FALSE, warning=FALSE, results='hide', echo=FALSE}
 order <- df |>
   group_by(Index) |>
-  summarize(Duration = median(Duration)) |>
+  summarize(Duration = median(Duration * 10000)) |>
   arrange(Duration) |>
   mutate(Index = factor(Index, levels = Index))
 
 df <- mutate(df, Index = fct_relevel(Index, as.character(order$Index)))
 ```
-```{r computationtime, echo=FALSE, fig.cap="Median computation time difference between the different complexity indices algorithms.", fig.height=10*1.25, fig.width=16*1.25, message=FALSE, warning=FALSE, cache=cache, include=FALSE, eval=FALSE}
+```{r computationtime, echo=FALSE, fig.height=10*1.25, fig.width=16*1.25, message=FALSE, warning=FALSE, cache=cache, include=FALSE, eval=FALSE}
 p <- df |>
-  filter(!Index %in% c("SD", "Length", "Noise", "Random", "Frequency")) |>
-  mutate(Duration = Duration * 10000) |>
+  filter(!Index %in% c("Length", "Noise", "Random", "Frequency")) |>
   ggplot(aes(x = Index, y = Duration)) +
   # geom_violin(aes(fill = Index)) +
   geom_hline(yintercept = 10**seq(0, 5, by = 2), linetype = "dotted", color = "#9E9E9E") +
@@ -260,21 +304,21 @@ p <- df |>
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1)) +
   labs(x = NULL, y = "Computation Time")
 # ggsave("figures/computation_time-1.png", p, height=10*1.25, width=16*1.25)
-p
+# p
 ```
-```{r computationtime2, echo=FALSE, fig.cap="Median computation time difference between the different complexity indices algorithms.", fig.height=10*1.25, fig.width=16*1.25, message=FALSE, warning=FALSE, cache=FALSE, out.width="100%"}
+```{r computationtime2, echo=FALSE, fig.cap="Median computation time difference between the different complexity indices algorithms.", fig.height=10*1.25, fig.width=16*1.25, message=FALSE, warning=FALSE, cache=FALSE, out.width="100%", eval=FALSE}
 knitr::include_graphics("figures/computation_time-1.png")
 ```
 
 
-```{r time1, message=FALSE, warning=FALSE, include=FALSE, eval=FALSE}
+```{r time1, message=FALSE, warning=FALSE, include=FALSE, eval=FALSE, fig.cap="Median computation time difference between the different complexity indices algorithms, as well as variability as a function of signal lengths (represented by different line colors). The indices are grouped in sections (background color) according to their median computation time. Note that the time is expressed in arbitrary units as it is intended to convey differences, as the actual time would depend on the system specifications.", fig.height=10*1.25, fig.width=16*1.25, cache=cache, include=FALSE, eval=FALSE}
 dfsummary <- df |>
   filter(!Index %in% c("SD", "Length", "Noise", "Random", "Frequency")) |>
   mutate(Duration = Duration * 10000) |>
   group_by(Index, Length) |>
   summarize(
-    CI_low = median(Duration) - sd(Duration),
-    CI_high = median(Duration) + sd(Duration),
+    CI_low = median(Duration) - mad(Duration),
+    CI_high = median(Duration) + mad(Duration),
     Duration = median(Duration)
   )
 dfsummary$CI_low[dfsummary$CI_low < 0] <- 0
@@ -282,13 +326,24 @@ dfsummary$CI_low[dfsummary$CI_low < 0] <- 0
 
 dfsummary |>
   ggplot(aes(x = Index, y = Duration)) +
-  # geom_hline(yintercept = c(0.001, 0.01, 0.1, 1), linetype = "dotted") +
+  geom_rect(data=NULL, aes(xmin=factor("LL", levels="LL"),
+                           xmax=factor("RR", levels="RR"), ymin=0, ymax=Inf), fill="#DCEDC8") +
+  geom_rect(data=NULL, aes(xmin=factor("RR", levels="RR"),
+                           xmax=factor("CWPEn", levels="CWPEn"), ymin=0, ymax=Inf), fill="#F0F4C3") +
+  geom_rect(data=NULL, aes(xmin=factor("CWPEn", levels="CWPEn"),
+                           xmax=factor("PLZC", levels="PLZC"), ymin=0, ymax=Inf), fill="#FFF9C4") +
+  geom_rect(data=NULL, aes(xmin=factor("PLZC", levels="PLZC"),
+                           xmax=factor("RQA (DeteRec)", levels="RQA (DeteRec)"), ymin=0, ymax=Inf), fill="#FFECB3") +
+  geom_rect(data=NULL, aes(xmin=factor("RQA (DeteRec)", levels="RQA (DeteRec)"),
+                           xmax=Inf, ymin=0, ymax=Inf), fill="#FFE0B2") +
   geom_hline(yintercept = 10**seq(0, 5, by = 2), linetype = "dotted", color = "#9E9E9E") +
-  geom_line(aes(group = Length, color = Length)) +
   geom_hline(yintercept = 10**seq(1, 5, by = 2), color = "#9E9E9E") +
-  # geom_point(aes(color = Length)) +
+  geom_line(aes(group = Length, color = Length), size=1) +
+  geom_line(data=filter(order, !Index %in% c("SD", "Length", "Noise", "Random", "Frequency")), aes(group=1), size=1) +
   theme_modern() +
+  scale_color_gradient(low = "#2196F3", high = "#d7175c", guide = "none") +
   scale_y_log10(breaks = 10**seq(0, 5), labels = function(x) sprintf("%g", x)) +
+  scale_x_discrete(expand = c(0, 0)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1)) +
   guides(alpha = "none") +
   labs(y = "Time to compute", x = NULL, color = "Signal length")
@@ -297,7 +352,7 @@ dfsummary |>
 
 ```{r time2, message=FALSE, warning=FALSE, include=FALSE, eval=FALSE}
 df |>
-  filter(!Index %in% c("SD", "Length", "Noise", "Random", "Frequency")) |>
+  filter(!Index %in% c("Length", "Noise", "Random", "Frequency")) |>
   mutate(Duration = Duration * 10000) |>
   ggplot(aes(x = as.factor(Length), y = Duration)) +
   # geom_hline(yintercept = c(0.001, 0.01, 0.1, 1), linetype = "dotted") +
@@ -310,7 +365,7 @@ df |>
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
-Firstly, one should note that the computation times presented in **Figure 2** are relative and do not correspond to real times, as these would highly depend on the machine used. Rather, the goal here was to convey some intuition on the differences between different classes of indices (using the same machine and the same language of implementation, i.e., Python). While it is possible that computational advances or improvements in the code efficiency might change some of these values, we believe that the "big picture" should remain fairly stable, as it is to a large extent driven by the inherent nature of the algorithms under consideration.
+Firstly, one should note that the computation times presented in **Figure 2** are relative (in arbitrary units) and do not correspond to real times, as these would highly depend on the system specifications. Rather, the goal here was to convey some intuition on the differences between different classes of indices (using the same machine and the same language of implementation, i.e., Python). While it is possible that computational advances or improvements in the code efficiency might change some of these values, we believe that the "big picture" should remain fairly stable, as it is to a large extent driven by the inherent nature of the algorithms under consideration.
 
 Despite the relative shortness of the signals considered (a few thousand points at most), the fully-parallelized data generation script took about 24h to run on a 48-cores machine. After summarizing and sorting the indices by computation time, the most striking feature is the order of magnitude of difference between the fastest and slowest indices. Additionally, some indices are particularly sensitive to the signal length, a property which combined with computational cost led to indices being 100,000 times slower to compute than others.
 
@@ -321,11 +376,13 @@ In particular, multiscale indices were among the slowest to compute due to their
 ```{r message=FALSE, warning=FALSE, results='hide', echo=FALSE}
 # Show and filter out NaNs
 as.character(df[is.na(df$Result), "Index"])
+# df[is.na(df$Result), c("Index", "Signal", "Length")]
 df <- filter(df, !is.na(Result))
 
 as.character(df[is.infinite(df$Result), "Index"])
 df <- filter(df, !is.infinite(Result))
 
+# STANDARDIZATION
 df <- df |>
   group_by(Index) |>
   standardize(select = "Result") |>
@@ -337,19 +394,27 @@ df <- df |>
 
 ```{r message=FALSE, warning=FALSE, fig.width=16, fig.height=15, cache=cache}
 data <- df |>
+  # filter(Signal != "EEG") |>
   mutate(i = paste(Signal, Length, Noise_Type, Noise_Intensity, sep = "__")) |>
   select(i, Index, Result) |>
   pivot_wider(names_from = "Index", values_from = "Result") |>
   select(-i)
 
+# df %>%
+#   mutate(i = paste(Signal, Length, Noise_Type, Noise_Intensity, sep = "__")) |>
+#   dplyr::group_by(i, Index) %>%
+#   dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+#   dplyr::filter(n > 1L) 
+
 # pca <- principal_components(data, n=1) |>
 #   arrange(desc(sign(PC1)), desc(abs(PC1)))
 
-get_cor <- function(data, plot=FALSE) {
-  cor <- correlation::correlation(data, method = "pearson", redundant = TRUE) |>
+get_cor <- function(data, plot = FALSE) {
+  cor <- data |> 
+    correlation::correlation(method = "pearson", redundant = TRUE) |>
     correlation::cor_sort(hclust_method = "ward.D2")
 
-  if(plot) {
+  if (plot) {
     p_data <- cor |>
       cor_lower() |>
       mutate(
@@ -369,7 +434,7 @@ get_cor <- function(data, plot=FALSE) {
       theme_minimal() +
       theme(
         axis.text.x = element_text(angle = 90, hjust = 1),
-        plot.title = element_text(hjust = 0.5, face="bold"),
+        plot.title = element_text(hjust = 0.5, face = "bold"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()
       )
@@ -377,17 +442,17 @@ get_cor <- function(data, plot=FALSE) {
   }
   cor
 }
-
-cor <- get_cor(data)
 ```
 
-```{r eval=TRUE, message=FALSE, warning=FALSE, include=FALSE, cache=cache}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, cache=cache}
+cor <- get_cor(data)
+
 cor |>
   cor_lower() |>
   filter(Parameter1 %in% names(data), Parameter2 %in% names(data)) |>
   arrange(desc(abs(r)), Parameter1) |>
   filter(Parameter1 != Parameter2) |>
-  filter(abs(r) > .97) |>
+  filter(abs(r) > .98) |>
   select(Parameter1, Parameter2, r)
 ```
 
@@ -412,24 +477,28 @@ filter(averagetime, Index %in% c("CPEn", "CRPEn"))
 filter(averagetime, Index %in% c("NLDFD", "RR"))
 ```
 
-For the subsequent analyses, we removed statistically redundant indices (which correlation was equal to 1.0), such as *PowEn* - identical to *SD*, *CREn (100)* - identical to *CREn (10)*, and *FuzzyRCMSEn* - identical to *RCMSEn*.
+```{r correlation, message=FALSE, warning=FALSE, cache=cache, fig.width=16, fig.height=15, fig.cap="Correlation matrix of complexity indices."}
+data <- data |>
+  select(
+    -`NLDFD`,
+    -`CREn (15)`,
+    -`ShanEn (15)`
+  )
+
+cor <- get_cor(data, plot = TRUE)
+```
+
+For the subsequent analyses, we removed statistically redundant indices (which absolute correlation was equal to 1.0), such as 
+*NLDFD* - identical to *LL*,
+*ShanEn (15)* - identical to *ShanEn (9)*,
+*CREn (15)* - identical to *CREn (9)*,
+<!-- and *FI* - identical (but inversely related) to *SVDEn*. -->
+This resulting in a pool of `r ncol(data)` indices.
 
 
 ### Correlation
 
-```{r correlation, message=FALSE, warning=FALSE, cache=cache, fig.width=16, fig.height=15, fig.cap="Correlation matrix of complexity indices."}
-data <- data |>
-  select(
-    -`FuzzyRCMSEn`,
-    -`CREn (100)`,
-    -`PowEn`
-  )
-
-
-cor <- get_cor(data, plot=TRUE)
-```
-
-The Pearson correlation analysis revealed that complexity indices, despite their multitude and their conceptual specificities, do indeed share similarities. They form two major clusters that are easily observable (the blue and the red groups in **Figure 3**). That being said, these two anti-correlated groups are mostly revealing of the fact that some indices, by design, index the "predictability", whereas others, the "randomness", and thus are negatively related to one another. In order to extract finer groupings, further analyses procedures are applied below.
+The Pearson correlation analysis revealed that complexity indices, despite their multitude and their conceptual specificities, do indeed share similarities. They form two major clusters that are easily observable (the blue and the red groups in **Figure 3**). That being said, these two anti-correlated groups are mostly revealing of the fact that some indices, by design, index the "predictability", whereas others, the "randomness", and thus are negatively related to one another. In order to extract finer groupings, further analysis procedures are applied below.
 
 ### Factor Analysis
 
@@ -437,7 +506,9 @@ The Pearson correlation analysis revealed that complexity indices, despite their
 r <- correlation::cor_smooth(as.matrix(cor))
 ```
 ```{r nfactors, fig.cap="Agreement procedure for the optimal number of factors.", fig.height=7, fig.width=14, message=FALSE, warning=FALSE, include=FALSE, eval=TRUE, cache=cache}
-n <- parameters::n_factors(data, cor = r, n_max=20)
+n <- parameters::n_factors(data, cor = r, n_max = 20, 
+                           algorithm = "ml",
+                           rotation = "varimax", package = c("nFactors", "psych"))
 n
 plot(n) +
   see::theme_modern()
@@ -445,44 +516,57 @@ plot(n) +
 
 
 ```{r message=FALSE, warning=FALSE}
-selection <- c("ShanEn (D)",
-               "NLDFD",
-               "SVDEn",
-               "AttEn",
-               "MFDFA (Mean)",
-               "MFDFA (Max)",
-               "MFDFA (Increment)",
-               "MFDFA (Width)",
-               "FuzzyMSEn",
-               "MSWPEn",
-               "Hjorth",
-               "CWPEn")
+selection <- c(
+  "LL",
+  "SVDEn",
+  "Hjorth",
+  "AttEn",
+  
+  "BubbEn",
+  # "FuzzyMSEn",
+  "MSWPEn",
+  "CWPEn",
+  
+  "MFDFA (Mean)",
+  "MFDFA (Max)",
+  "MFDFA (Peak)",
+  # "MFDFA (Increment)",
+  "MFDFA (Fluctuation)",
+  "MFDFA (Width)"
+)
 ```
 
-```{r loadings, message=FALSE, warning=FALSE, fig.width=12, fig.height=18, fig.cap="Factor loadings and computation times of the complexity indices, colored by the factor they represent the most."}
-rez <- parameters::factor_analysis(data, cor = r, n = 14, rotation = "varimax", sort = TRUE, fm="mle")
+```{r loadings, message=FALSE, warning=FALSE, fig.width=12, fig.height=18, fig.cap="Factor loadings of the complexity indices, colored by the factor they represent the most (center). On the left, the median computation times and on the right, the archetypicity (the inverse of factor profile complexity, i.e., the extent to which each index is a pure representative of its dominant factor. This measure is low for indices that equally load on different factors)."}
+n <- 13
+rez <- parameters::factor_analysis(data, cor = r, n = n, rotation = "varimax", sort = TRUE, fm = "ml")
 # rez <- parameters::principal_components(data, n = 15, sort = TRUE)
 # rez
 
-col <- gsub('[[:digit:]]+', '', names(rez)[2])
-closest <- colnames(select(rez, starts_with(col)))[apply(select(rez, starts_with(col)), 1, \(x) which.max(abs(x)))]
-
+# 1. Get long loadings
+newfactors <- setNames(paste0("F", n:1), names(rez)[(n+1):2])
+names(rez)[(n+1):2] <- newfactors
 
 loadings <- attributes(rez)$loadings_long |>
   mutate(
     Loading = Loading,
-    Component = fct_relevel(Component, rev(names(select(rez, starts_with(col))))),
+    Component = fct_relevel(newfactors[as.character(Component)], newfactors),
     Variable = fct_rev(fct_relevel(Variable, rez$Variable))
   )
 
+
+# 2. Get closest
+closest <- colnames(rez[newfactors])[apply(rez[newfactors], 1, \(x) which.max(abs(x)))]
+names(closest) <- rev(levels(loadings$Variable))
+
+# Generate colors
 colors <- setNames(see::palette_material("rainbow")(length(levels(loadings$Component))), levels(loadings$Component))
 
 # Sort by sign too
-names(closest) <- rev(levels(loadings$Variable))
-
 idx_order <- loadings |>
-  mutate(Closest = closest[as.character(loadings$Variable)],
-         Sign = sign(Loading)) |>
+  mutate(
+    Closest = closest[as.character(loadings$Variable)],
+    Sign = sign(Loading)
+  ) |>
   filter(Component == Closest) |>
   arrange(desc(Component), desc(Sign), desc(abs(Loading))) |>
   pull(Variable) |>
@@ -491,7 +575,7 @@ idx_order <- loadings |>
 separations <- table(closest)[intersect(levels(loadings$Component), unique(closest))]
 
 face <- rep("plain", length(idx_order))
-face[idx_order %in% c("SD", "Length", "Noise", "Random", "Frequency")] <- "italic"
+face[idx_order %in% c("Length", "Noise", "Random", "Frequency")] <- "italic"
 face[idx_order %in% selection] <- "bold"
 
 
@@ -499,13 +583,13 @@ p1 <- loadings |>
   mutate(Variable = fct_relevel(Variable, rev(idx_order))) |>
   ggplot(aes(x = Variable, y = Loading)) +
   geom_bar(aes(fill = Component), stat = "identity") +
-  geom_vline(xintercept = c("SD", "Length", "Noise", "Random", "Frequency"), color = "red") +
+  # geom_vline(xintercept = c("Length", "Noise", "Random", "Frequency"), color = "red") +
   geom_vline(xintercept = head(cumsum(separations), -1) + 0.5) +
   scale_y_continuous(expand = c(0, 0)) +
   scale_fill_material_d("rainbow") +
   coord_flip() +
   theme_minimal() +
-  guides(fill = guide_legend(reverse = TRUE)) +
+  guides(fill = "none") +
   labs(x = NULL) +
   theme(
     axis.text.y = element_text(
@@ -519,17 +603,23 @@ p1 <- loadings |>
     panel.grid.minor = element_blank()
   )
 
+alpha <- setNames(rep(0.7, nrow(rez)), rez$Variable)
+alpha[selection] <- 1
+
 p2 <- order |>
-  mutate(Duration = 1 + Duration * 10000) |>
+  mutate(Duration = 1 + Duration) |>
   filter(Index %in% loadings$Variable) |>
-  mutate(Index = fct_relevel(Index, rev(idx_order)),
-         Duration = ifelse(is.na(Duration), 0, Duration)) |>
+  mutate(
+    Index = fct_relevel(Index, rev(idx_order)),
+    Duration = ifelse(is.na(Duration), 0, Duration)
+  ) |>
   ggplot(aes(x = log10(Duration), y = Index)) +
-  geom_bar(aes(fill = log10(Duration)), stat = "identity") +
+  geom_bar(aes(fill = log10(Duration), alpha=Index), stat = "identity") +
   geom_hline(yintercept = head(cumsum(separations), -1) + 0.5) +
   scale_x_reverse(expand = c(0, 0)) +
   scale_y_discrete(position = "right") +
   scale_fill_viridis_c(guide = "none") +
+  scale_alpha_manual(values=alpha, guide = "none") +
   labs(x = "Computation Time", y = NULL) +
   theme_minimal() +
   theme(
@@ -540,13 +630,41 @@ p2 <- order |>
     panel.grid.minor = element_blank()
   )
 
-(p2 | p1) + patchwork::plot_annotation(title = "Computation Time and Factor Loading", theme = theme(plot.title = element_text(hjust = 0.5, face = "bold")))
+
+
+
+p3 <- rez |>
+  mutate(Variable = fct_relevel(Variable, rev(idx_order)),
+         Component = fct_relevel(closest, rev(newfactors[newfactors %in% closest])),
+         Archetypicity = datawizard::normalize(-log(Complexity))) |>
+  ggplot(aes(x = Variable, y = Archetypicity)) +
+  geom_bar(aes(fill = Component, alpha=Variable), stat = "identity") +
+  # coord_cartesian(ylim = c(1, NA)) +
+  scale_fill_manual(values=colors) +
+  scale_alpha_manual(values=alpha, guide = "none") +
+  # scale_y_reverse(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  # coord_flip(ylim = c(1, NA))  +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_flip() +
+  labs(y = "Archetypicity", x = NULL) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.text.x = element_blank(),
+    plot.title = element_text(hjust = 0.5),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+
+
+(p2 | p1 | p3) + patchwork::plot_layout(widths = c(1, 2, 1)) +  patchwork::plot_annotation(title = "Computation Time and Factor Loading", theme = theme(plot.title = element_text(hjust = 0.5, face = "bold")))
 ```
 
-The agreement procedure for the optimal number of factors suggested that the 125 indices can be mapped on a multidimensional space of 14 orthogonal latent factors, that we extracted using a *varimax* rotation. We then took interest in the loading profile of each index, and in particular the latent dimension that it maximally relates to (see **Figure 4**).
+The agreement procedure for the optimal number of factors suggested that the `r ncol(data)` indices can be mapped on a multidimensional space of `r n` orthogonal latent factors, that we extracted using a *varimax* rotation. We then took interest in the loading profile of each index, and in particular the latent dimension that it maximally relates to (see **Figure 4**).
 
 The first extracted factor is the closest to the largest amount of indices, and is positively loaded by indices that are sensitive to the deviation of consecutive differences (e.g., *ShanEn - D*, *NLDFD*, *PFD - D*). In line with this, this factor was negatively loaded by indices related to Detrended Fluctuation Analysis (DFA), which tends to index the presence of long-term correlations. As such, this latent factor might encapsulate the predominance of short-term vs. long-term unpredictability.
-The second factor was strongly loaded by signal *length* and *SD*, and thus might not capture features of complexity *per se*. Indices with the most relation to it were indices known to be sensitive to signal length, such as *ApEn*.
+The second factor was strongly loaded by signal *length*, and thus might not capture features of complexity *per se*. Indices with the most relation to it were indices known to be sensitive to signal length, such as *ApEn*.
 The third factor included multiscale indices, such as *MSWPEn*.
 The fourth factor was loaded by permutation entropy indices, such as *WPEn*.
 The fifth and the sixth factors were loaded by indices grouped by the signal symbolization method used (by a tolerance level *r*, or by the number of bins for the fifth and the sixth factors, respectively).
@@ -564,35 +682,43 @@ extrafont::loadfonts()
 
 g <- cor |>
   cor_lower() |>
-  mutate(width = abs(r),
-         edgecolor = as.character(sign(r))) |>
-  filter(!Parameter1 %in% c("SD", "Length", "Random", "Frequency", "Noise"),
-         !Parameter2 %in% c("SD", "Length", "Random", "Frequency", "Noise")) |>
-  tidygraph::as_tbl_graph(directed=FALSE) |>
-  mutate(importance = tidygraph::centrality_authority(weights = abs(r)),
-         group = as.factor(tidygraph::group_louvain(weights = abs(r)))) |>
+  mutate(
+    width = abs(r),
+    edgecolor = as.character(sign(r))
+  ) |>
+  filter(
+    !Parameter1 %in% c("Length", "Random", "Frequency", "Noise"),
+    !Parameter2 %in% c("Length", "Random", "Frequency", "Noise")
+  ) |>
+  tidygraph::as_tbl_graph(directed = FALSE) |>
+  mutate(
+    importance = tidygraph::centrality_authority(weights = abs(r)),
+    group = as.factor(tidygraph::group_louvain(weights = abs(r)))
+  ) |>
   tidygraph::activate("edges") |>
   filter(abs(r) > 0.6) |>
   tidygraph::activate("nodes") |>
   filter(!tidygraph::node_is_isolated()) |>
-  mutate(colors = closest[name],
-         selection = ifelse(name %in% selection, TRUE, FALSE))
+  mutate(
+    colors = closest[name],
+    selection = ifelse(name %in% selection, TRUE, FALSE)
+  )
 
 
 p1 <- g |>
-  ggraph(layout = 'linear', circular = TRUE) +  # fr # lgl # drl # kk
-  ggraph::geom_edge_arc(aes(edge_width=width, edge_colour=edgecolor), alpha=0.66, strength=0.3) +
+  ggraph(layout = "linear", circular = TRUE) + # fr # lgl # drl # kk
+  ggraph::geom_edge_arc(aes(edge_width = width, edge_colour = edgecolor), alpha = 0.66, strength = 0.3) +
   # ggraph::geom_conn_bundle(aes(edge_width=width, edge_colour=edgecolor), alpha=0.66) +
   ggraph::geom_node_point(aes(size = importance)) +
-  ggraph::geom_node_text(aes(x = x*1.05, y=y*1.05, label = name, angle = -((-node_angle(x, y)+90)%%180)+90, hjust='outward', color=selection)) +
-  scale_edge_color_manual(values = c("1" = "#2E7D32", "-1"="#C62828"), guide = "none") +
+  ggraph::geom_node_text(aes(x = x * 1.05, y = y * 1.05, label = name, angle = -((-node_angle(x, y) + 90) %% 180) + 90, hjust = "outward", color = selection)) +
+  scale_edge_color_manual(values = c("1" = "#2E7D32", "-1" = "#C62828"), guide = "none") +
   scale_edge_width_continuous(range = c(0.005, 0.66), guide = "none") +
   scale_size_continuous(range = c(0.1, 2), guide = "none") +
-  scale_fill_material_d(guide= "none") +
-  scale_colour_manual(values=c("TRUE" = "red", "FALSE"="black"), guide= "none") +
+  scale_fill_material_d(guide = "none") +
+  scale_colour_manual(values = c("TRUE" = "red", "FALSE" = "black"), guide = "none") +
   ggtitle("Correlation Network") +
   ggraph::theme_graph() +
-  theme(plot.title = element_text(face="bold", hjust=0.5)) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
   expand_limits(x = c(-1.25, 1.25), y = c(-1.25, 1.25))
 
 p1
@@ -602,42 +728,45 @@ p1
 
 ```{r clustering, message=FALSE, warning=FALSE, fig.width=13.4, fig.height=13.4, fig.cap = "Dendrogram representing the hierarchical clustering of the complexity indices.", cache=cache}
 clust <- data |>
-  select(-SD, -Length, -Random, -Frequency, -Noise) |>
+  # select(-SD, -Length, -Random, -Frequency, -Noise) |>
+  select(-Random) |>
   t() |>
   as.data.frame() |>
   dist() |>
   hclust(method = "ward.D2")
 
 
-clusters <- cutree(clust, h = 150)
+clusters <- cutree(clust, h = 210)
 colors <- c("red", "black", see::palette_material("rainbow")(max(clusters)))
 names(colors) <- c("TRUE", "FALSE", seq(1:max(clusters)))
 
 dat <- clust |>
-  create_layout(layout = 'dendrogram', circular = TRUE, repel=TRUE) |>
+  create_layout(layout = "dendrogram", circular = TRUE, repel = TRUE) |>
   attr("graph") |>
   tidygraph::activate("nodes") |>
-  mutate(colors = closest[label],
-         selection = ifelse(label %in% selection, TRUE, FALSE),
-         cluster = as.factor(clusters[label]))
+  mutate(
+    colors = closest[label],
+    selection = ifelse(label %in% selection, TRUE, FALSE),
+    cluster = as.factor(clusters[label])
+  )
 
 
-p2 <- dat |>
+pclust <- dat |>
   tidygraph::activate("edges") |>
   mutate(height = as.data.frame(dat)$height[from]) |>
-  ggraph(layout = 'dendrogram', circular = TRUE, repel=TRUE) +
+  ggraph(layout = "dendrogram", circular = TRUE, repel = TRUE) +
   geom_edge_elbow(aes(edge_width = height)) +
-  geom_node_point(aes(filter=leaf, color = cluster), size=3) +
-  geom_node_text(aes(x = x*1.05, y=y*1.05, label = label, angle = -((-node_angle(x, y)+90)%%180)+90, hjust='outward', color = selection)) +
-  scale_colour_manual(values=colors, guide= "none") +
-  scale_edge_width_continuous(range=c(1, 1.15), guide= "none") +
+  geom_node_point(aes(filter = leaf, color = cluster), size = 3) +
+  geom_node_text(aes(x = x * 1.05, y = y * 1.05, label = label, angle = -((-node_angle(x, y) + 90) %% 180) + 90, hjust = "outward", color = selection)) +
+  scale_colour_manual(values = colors, guide = "none") +
+  scale_edge_width_continuous(range = c(1, 1.15), guide = "none") +
   coord_fixed() +
   ggtitle("Hierarchical Clustering") +
   theme_graph() +
-  theme(plot.title = element_text(face="bold", hjust=0.5)) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
   expand_limits(x = c(-1.25, 1.25), y = c(-1.25, 1.25))
-# ggsave("figures/g.png", p2, width=13.4, height=13.4)
-p2
+# ggsave("figures/clustering-1.png", pclust, width=13.4, height=13.4)
+pclust
 ```
 
 For illustration purposes, we represented the correlation matrix as a connectivity graph (see **Figure 5**). We then ran a hierarchical clustering (with a Ward D2 distance) to provide additional information or confirmation about the groups discussed above. This allowed us to fine-grain our recommendations of complimentary complexity indices (see **Figure 6**).
@@ -648,112 +777,119 @@ For illustration purposes, we represented the correlation matrix as a connectivi
 
 The selection of a subset of indices was based on the following considerations: 1) high loadings on one predominant latent dimension, with additional attention to the pattern of secondary loadings. For instance, an index with a positive factor 1 loading and a negative factor 2 loading could complement another index with a similar factor 1 loading, but a positive factor 2 loading. This was helped by 2) the hierarchical clustering dendrogram, with which we attempted to indices from each (meaningful) higher order clusters. Items related to clusters that we know were related to noise, length or other artifacts were omitted. 3) A preference for indices with relatively shorter computation times. This yielded a selection of 12 indices. Next, we computed the cumulative variance explained of this selection in respect to the entirety of indices, and derived the optimal order to maximize the variance explained (see **Figure 7**). The 12 included indices, representing $91.01\%$ of the variance of the whole dataset, were:
 
+- *LL*: The Line Length index stems out of a simplification of Katz' fractal dimension (*KFD*) algorithm [@esteller2001line] and corresponds to the average of consecutive absolute differences. It is equivalent *NDLFD*, the Fractal dimension via Normalized Length Density [@kalauzi2009extracting].
 - *ShanEn (D)*: The Shannon Entropy of the symbolic times series obtained by the "D" method described in @petrosian1995kolmogorov used traditionally in the context of the Petrosian fractal dimension [@esteller2001comparison]. The successive differences of the time series are assigned to 1 if the difference exceeds one standard deviation or 0 otherwise. The Entropy of the probabilities of these two events is then computed.
 - *MSWPEn*: The Multiscale Weighted Permutation Entropy is the entropy of weighted ordinal descriptors of the time-embedded signal computed at different scales obtained by a coarsegraining procedure [@fadlallah2013weighted].
 - *CWPEn*: The Conditional Weighted Permutation Entropy is based on the difference of weighted entropy between that obtained at an embedding dimension $m$ and that obtained at $m+1$ [@unakafov2014conditional].
 - *FuzzyMSEn*: This index corresponds to the multiscale Fuzzy Sample Entropy [@ishikawa1979fuzzy]. This algorithm is computationally expensive to run.
 - *AttEn*: The Attention Entropy is based on the frequency distribution of the intervals between the local maxima and minima of the time series [@yang2020classification].
 - *NLDFD*: The Fractal dimension via Normalized Length Density (NLD) corresponds to the average absolute consecutive differences of the standardized signal [@kalauzi2009extracting].
-- *Hjorth*: Hjorth's Complexity is defined as the ratio of the mobility of the first derivative of the signal to the mean frequency of the signal [@hjorth1970eeg].
+- *Hjorth*: Hjorth's Complexity is defined as the ratio of the mean frequency of the first derivative of the signal to the mean frequency of the signal [@hjorth1970eeg].
 - *MFDFA (Width)*: The width of the multifractal singularity spectrum [@kantelhardt2002multifractal] obtained via Detrended Fluctuation Analysis (DFA).
 - *MFDFA (Max)* :  The value of singularity spectrum *D* corresponding to the maximum value of singularity exponent *H*.
 - *MFDFA (Mean)* : The mean of the maximum and minimum values of singularity exponent *H*.
-- *SVDEn*: Singular Value Decomposition (SVD) Entropy quantifies the amount of eigenvectors needed for an adequate representation of the signal [@roberts1999temporal].
+- *SVDEn*: The Singular Value Decomposition (SVD) Entropy quantifies the amount of eigenvectors needed for an adequate representation of the system [@roberts1999temporal].
 - *MFDFA (Increment)*: The cumulative function of the squared increments of the generalized Hurst's exponents between consecutive moment orders [@faini2021multiscale].
 
 
-```{r varexplained, echo=FALSE, fig.cap="Variance of the whole dataset of indices explained by the subselection. Each line represents a random number of selected variables. The red line represents the optimal order (i.e., the relative importance) that maximizes the variance explained. The dotted blue line represents the cumulative relative average computation time of the selected indices, and shows that FuzzyMSEn and MFDFA indices are the most costly algorithms.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, cache=cache}
-dat <- select(data, -Random, -Frequency, -Noise, -Length, -SD)
-SumCy <- sum(cov(dat), na.rm=TRUE)
-varex <- data.frame()
+```{r varexplained, echo=FALSE, fig.cap="Variance of the whole dataset of indices explained by the subselection. Each line represents a random number of selected variables. The green line represents the optimal order (i.e., the relative importance) that maximizes the variance explained. The dotted blue line represents the cumulative relative median computation time of the selected indices, and shows that FuzzyMSEn and MFDFA indices are the most costly algorithms.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, cache=cache}
+dat <- select(data, -Random, -Frequency, -Noise, -Length)
 
+SumCy <- sum(cov(dat), na.rm = TRUE)
 get_r2 <- function(data, dat, SumCy) {
-    Cx <- cov(data)
-    Cxy <- cov(data, dat)
-    solved <- tryCatch(solve(Cx), error = function(e) NULL)
-    if (is.null(solved)) {
-      return(NA)
-      next
-    } else {
-      VAF <- t(Cxy) %*% solved %*% Cxy
-      return(sum(VAF, na.rm=TRUE) / SumCy)
-    }
+  Cx <- cov(data)
+  Cxy <- cov(data, dat)
+  solved <- tryCatch(solve(Cx), error = function(e) NULL)
+  if (is.null(solved)) {
+    return(NA)
+    next
+  } else {
+    VAF <- t(Cxy) %*% solved %*% Cxy
+    return(sum(VAF, na.rm = TRUE) / SumCy)
+  }
 }
+
+
 
 
 optim <- data.frame()
 final <- rep(NA, length(selection))
-for(i in 1:length(selection)) {
+for (i in 1:length(selection)) {
   selec <- setdiff(selection, final)
   r2s <- rep(NA, length(selec))
-  for(j in 1:length(selec)) {
+  for (j in 1:length(selec)) {
     final[i] <- selec[j]
     temp <- final[!is.na(final)]
     r2s[j] <- get_r2(data[temp], dat, SumCy)
   }
-  optim <- rbind(optim,
-               data.frame(Order = i,
-                          Index = selec,
-                          VarEx = r2s))
-  final[i] <- selec[which.max(r2s)]
-
+  idx <- which.max(r2s)
+  optim <- rbind(
+    optim,
+    data.frame(
+      Order = i,
+      Index = selec[idx],
+      VarExplained = r2s[idx]
+    )
+  )
+  final[i] <- selec[idx]
 }
 
+
+
 varex <- data.frame()
-for(iter in 1:500) {
+for (iter in 1:200) {
   # cat(paste0(iter, " "))
   r2s <- rep(NA, length(selection))
   set.seed(iter)
   selec <- sample(selection)
-  for(i in 1:length(selection)) {
+  for (i in 1:length(selection)) {
     r2s[i] <- get_r2(data[selec[1:i]], dat, SumCy)
   }
-  varex <- rbind(varex,
-                 data.frame(Index = selec,
-                            VarExplained = r2s,
-                            CumVar = sum(r2s, na.rm=TRUE),
-                            Order = 1:length(selection),
-                            Iteration = as.character(iter)))
+  varex <- rbind(
+    varex,
+    data.frame(
+      Index = selec,
+      VarExplained = r2s,
+      CumVar = sum(r2s, na.rm = TRUE),
+      Order = 1:length(selection),
+      Iteration = as.character(iter)
+    )
+  )
 }
-
-for(i in 1:length(selection)) {
-  varex <- rbind(varex,
-                 data.frame(Index = final[1:i],
-                            VarExplained = get_r2(data[final[1:i]], dat, SumCy),
-                            CumVar = max(optim$VarEx, na.rm=TRUE),
-                            Order = i,
-                            Iteration = "0"))
-}
-
 
 varex <- arrange(varex, desc(CumVar), Order)
-selection <- varex[1:length(selection), "Index"]
-higher <- varex[varex$Iteration == varex$Iteration[which(varex$VarExplained == max(varex$VarExplained, na.rm=TRUE))], ]
+
 
 time <- order[order$Index %in% final, ]
 time <- time[match(final, time$Index), ]
-time[str_starts(time$Index, "MFDFA"), "Duration"] <- c(time[time$Index == "MFDFA (Width)",]$Duration, 0, 0, 0)
+time[str_starts(time$Index, "MFDFA"), "Duration"][2:5, ] <- 0
 time$CumDuration <- cumsum(time$Duration)
-time$VarExplained <- data_rescale(time$CumDuration, c(0.5, 0.95))
+time$VarExplained <- (0.5 + (time$CumDuration / max(time$CumDuration) / 2))
+time$VarExplained <- datawizard::data_rescale(time$VarExplained, c(min(time$VarExplained), max(varex$VarExplained)))
 time$Order <- as.factor(1:nrow(time))
+
+labels <- data.frame(label = final,
+                     Order = 1:length(final),
+                     VarExplained = optim$VarExplained)
+
 
 p5 <- varex |>
   mutate(Order = as.factor(Order)) |>
-  ggplot(aes(x = Order, y=VarExplained)) +
-  geom_line(aes(group=Iteration), color="black", alpha=0.05, size=0.3) +
-  geom_line(aes(group=1), data=time, color="blue", alpha=0.5, size=1, linetype = "dotted") +
-  geom_line(data=varex[varex$Iteration == "0", ], size=1, color="red") +
-  annotate("label", x = 10, y = 0.5,
-           label=paste0(
-             c(paste0("Max. R² = ",  insight::format_value(max(optim$VarEx, na.rm=TRUE), as_percent=TRUE)),
-               paste0(1:length(selection), ": ", final)),
-             collapse="\n"),
-           color= "red", hjust=0, vjust=0, size=3) +
-  labs(x = "Number of Selected Indices", y = "Variance Explaiend", title="Explanatory Power of Indices Subset") +
-  scale_y_continuous(labels=scales::percent) +
-  coord_cartesian(ylim=c(0.5, 0.95)) +
+  ggplot(aes(x = Order, y = VarExplained)) +
+  geom_line(aes(group = Iteration), color = "black", alpha = 0.05, size = 0.3) +
+  geom_line(aes(group = 1), data = time, color = "#1E88E5", alpha = 0.5, size = 1, linetype = "dotted") +
+  geom_line(data = optim, size = 1, color = "#388E3C") +
+  annotate("text",
+    x = 1, y = 0.9,
+    label = paste0("Max. R² = ", insight::format_value(max(optim$VarEx, na.rm = TRUE), as_percent = TRUE)),
+    color = "black", hjust = 0, vjust = 0) +
+  annotate("text", label=labels$label, x=labels$Order, y=labels$VarExplained + 0.01, 
+           angle=45, hjust = 0, vjust = 0, color="#388E3C") +
+  labs(x = "Number of Selected Indices", y = "Variance Explaiend", title = "Explanatory Power of Indices Subset") +
+  scale_y_continuous(labels = scales::percent, expand=c(0, 0)) +
+  coord_cartesian(ylim = c(0.5, 0.95)) +
   theme_classic() +
-  theme(plot.title = element_text(hjust=0.5, face="bold"))
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 # ggsave("figures/varexplained-1.png", p5, width=7, height=5)
 p5
 ```
@@ -762,20 +898,33 @@ Finally, we visualized the expected value of our selection of indices for differ
 
 ```{r models, message=FALSE, warning=FALSE, fig.width=14, fig.height=7, fig.cap="Visualization of the expected value of a selection of indices depending on the signal type and of the amount of noise.", cache=cache}
 model <- mgcv::gam(Result ~ s(Noise_Intensity, by = interaction(Index, Signal)),
-            data=df |>
-              filter(Index %in% selection) |>
-              mutate(Noise_Type = as.factor(Noise_Type)))
+  data = df |>
+    filter(Index %in% selection) |>
+    mutate(Noise_Type = as.factor(Noise_Type))
+)
 
-estimate_means(model, at = c("Index", "Signal", "Noise_Intensity")) |>
-  mutate(Index = fct_relevel(Index, final)) |>
+estimate_means(model, at = c("Index", "Signal", "Noise_Intensity")) |> 
+  mutate(Index = fct_relevel(Index, final),
+         Signal = ifelse(Signal == "fractal", "Fractal", Signal),
+         Signal = ifelse(Signal == "oscillatory", "Oscillatory", Signal),
+         Signal = ifelse(Signal == "lorenz_10_2.5_28", "Lorenz (\u03c3=10, \u03B2=2.5, \u03C1=28)", Signal),
+         Signal = ifelse(Signal == "lorenz_20_2_30", "Lorenz (\u03c3=20, \u03B2=2, \u03C1=30)", Signal)) |>
   ggplot(aes(y = Mean, x = Noise_Intensity)) +
-  geom_line(aes(color = Signal), size=1) +
+  geom_line(aes(color = Signal), size = 1) +
   facet_wrap(~Index) +
   scale_linetype_manual(values = c("-2" = 3, "-1" = 4, "0" = 2, "1" = 5, "2" = 1)) +
+  scale_color_manual(values = c("Random-Walk" = "#795548", 
+                                "Fractal"= "#4CAF50", 
+                                "Lorenz (\u03c3=10, \u03B2=2.5, \u03C1=28)" = "#FF5722",
+                                "Lorenz (\u03c3=20, \u03B2=2, \u03C1=30)" = "#E91E63",
+                                "Oscillatory" = "#2196F3",
+                                "EEG" = "#673AB7")) +
   theme_classic() +
   scale_color_material("rainbow") +
-  theme(panel.grid.major = element_line(colour = "#EEEEEE"),
-        strip.background = element_blank()) +
+  theme(
+    panel.grid.major = element_line(colour = "#EEEEEE"),
+    strip.background = element_blank()
+  ) +
   labs(y = "Standardized Index Value", x = "Noise Intensity", color = "Signal Type")
 ```
 
