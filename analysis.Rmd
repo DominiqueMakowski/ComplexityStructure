@@ -15,23 +15,23 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 ## Introduction
 
-Complexity is an umbrella term for concepts derived from information theory, chaos theory, and fractal mathematics, used to quantify unpredictability, entropy, and/or randomness. Using these methods to characterize physiological signals [a subfield commonly referred to as "fractal physiology", @bassingthwaighte2013fractal] has shown promising results in the assessment and diagnostic of the state and health of living systems [@lau2021brain; @ehlers1995chaos; @goetz2007].
+Complexity is an umbrella term for concepts derived from information theory, chaos theory, and fractal mathematics, used to quantify unpredictability, entropy, and/or randomness. Using the methods that stem from these theoretical frameworks to characterize physiological signals [a subfield commonly referred to as "fractal physiology", @bassingthwaighte2013fractal] has shown promising results in the assessment and diagnostic of the state and health of living systems [@lau2021brain; @ehlers1995chaos; @goetz2007].
 
-There has been an exponential increase in the number of complexity indices in the past few decades [@yang2013]. Although these new procedures are usually mathematically well-defined and theoretically promising, limited empirical evidence is available to understand their similarities and differences [@lau2021brain; @yang2013]. Moreover, some of these methods are resource-intensive and require long computation times. This complicates their application with techniques that utilise high sampling-rates (e.g., M/EEG) and makes them impractical to implement in real-time settings - such as brain-computer interfaces [@azami2017refined; @manis2018]. As such, having empirical data about the computation time of various complexity indices would prove useful, for instance to objectively guide their selection, especially in contexts where time or computational resources are limited.
+In the past few decades, there has been an exponential increase in the number of complexity indices[@yang2013]. Although these new procedures are usually mathematically well-defined and theoretically promising, limited empirical evidence is available to understand their similarities and differences [@lau2021brain; @yang2013]. Moreover, some of these methods are resource-intensive and require long computation times. This complicates their applicability with techniques that utilise high sampling-rates (e.g., M/EEG) and makes them impractical to implement in real-time settings - such as within brain-computer interface systems [@azami2017refined; @manis2018]. As such, having empirical data about the computation time of various complexity indices would prove useful, for instance to objectively guide researchers interested in using these measures with their selection, especially in contexts where time or computational resources are constrained.
 
-Additionally, the lack of a comprehensive open-source and user-friendly software for computing various complexity indices likely contributes to the limited availability of empirical comparison [@flood2021]. Indeed, many complexity indices are only described mathematically in journal articles, with reusable code seldom made available, therefore limiting their further application and validation [@yang2013; @flood2021]. And complexity measures with open-source code implementations are scattered across different packages or scripts, or embedded within a larger goal-directed framework [e.g., *HCTSA*, a time-series comparison tool, @fulcher2017]. To address this lack of unified accessibility, we added a comprehensive set of complexity-related features to *NeuroKit2*, a Python package for physiological signal processing [@Makowski2021neurokit], to provide users with a software to compute a vast amount of complexity indices. The code is designed to be as fast as possible, while still written in pure Python [with the help of standard dependencies such as *NumPy* or *Pandas*, @harris2020array; @mckinney2010data] to maximize the re-usability, transparency, and correctness.
+Additionally, the lack of a comprehensive open-source and user-friendly software for computing various complexity indices likely contributes to the scarcity of empirical comparison [@flood2021]. Indeed, many complexity indices are only described formulaically in journal articles, with reusable code seldom made available, therefore limiting their further application and validation [@yang2013; @flood2021]. Even when available on open-source platforms, the source code implementations of complexity measures are typically found scattered across different packages or scripts, or embedded within a larger goal-directed framework [e.g., *HCTSA*, a time-series comparison tool, @fulcher2017]. To address this lack of unified accessibility, we added a comprehensive set of complexity-related features to *NeuroKit2*, a Python package for physiological signal processing [@Makowski2021neurokit]. In doing so, we hope to provide users an intellgible software capable of computing a plethora of complexity measures. The code is designed to run quickly and efficiently, while still being written in pure Python [with the help of standard dependencies such as *NumPy* or *Pandas*, @harris2020array; @mckinney2010data] to maximize its reusability, transparency, and correctness.
 
-Leveraging this tool, the goal of this study is to empirically compare a large number of complexity indices, inspect how they relate to one another, and derive recommendations for indices selection. More specifically, we will quantify the complexity of various types of signals with varying degrees of noise using 112 of the predominantly used indices that are available for computation using *NeuroKit2*. Note that, even though it is one of the largest comparison to date to our knowledge (and covers the most commonly used metrics), this list is by no means exhaustive: new indices are being developed, such as for instance *symmetropy* [@girault2022]. We will then project the results on a latent space through factor analysis, and review the various indices that we find the most relevant and interesting in regards to their representation of the latent dimensions. This analysis will be complemented by hierarchical clustering.
+Leveraging this tool, the goal of this study is to empirically compare a large number of complexity indices, inspect how they relate to one another, and derive recommendations for indices selection. More specifically, we will quantify the complexity of various types of signals with varying degrees of noise using 112 of the predominantly used indices that are available for computation via *NeuroKit2*. We will then project the results on a latent space through factor analysis, and review the indices that we find the most relevant and interesting in regards to their representation of the latent dimensions. This analysis will be complemented by hierarchical clustering. It should be noted that, even though this is one of the largest empirical comparison of complexity measures to date to our knowledge (and covers almost all of the most commonly used metrics [@tang2015]), the list of indices used is by no means exhaustive, with new indices constantly being developed, such as for instance *symmetropy* [@girault2022].
 
 ## Methods
 
 ```{r message=FALSE, warning=FALSE, include=FALSE, results='hide'}
 cache <- TRUE
 ```
-```{r signals, message=FALSE, warning=FALSE, fig.height=16, fig.width=10, echo=FALSE, fig.cap = "Different types of simulated signals, to which was added 5 types of noise (violet, blue, white, pink, and brown) with different intensities. For each signal type, the first row shows the signal with a minimal amount of noise, and the last with a maximal amount of noise.", cache=FALSE}
+
+```{r signals, message=FALSE, warning=FALSE, fig.height=16, fig.width=10, echo=FALSE, fig.cap = "Different types of simulated signals, to which was added 5 types of noise (violet, blue, white, pink, and brown) with different intensities. For each signal type, the top row shows the signal with a minimal amount of noise, and the bottom row with a maximal amount of noise.", cache=FALSE}
 library(tidyverse)
 library(easystats)
 library(patchwork)
@@ -80,21 +80,15 @@ p1 / p2 / p3 / p4 / p5 / p6 + patchwork::plot_annotation(title = "Examples of Si
 rm(df, p1, p2, p3, p4, p5, p6)
 ```
 
+The Python script to generate the data can be found at **github.com/DominiqueMakowski/ComplexityStructure**.
 
-The Python script to generate the data can be found at
-**github.com/DominiqueMakowski/ComplexityStructure**.
+We started by generating 6 types of signals, one random-walk, two oscillatory signals (with one made of harmonic frequencies that results in a self-repeating - fractal-like - signal), two complex signals derived from Lorenz systems (with parameters [$\sigma = 10, \beta = 2.5, \rho = 28$]; and [$\sigma = 20, \beta = 2, \rho = 30$], respectively) and one EEG-like simulated signal. Each of these signals was iteratively generated at 6 different lengths (ranging from 500 to 3000 by 500 samples). The resulting vectors were standardized and each were added 5 types of $(1/f)^\beta$ noise (namely violet $\beta=-2$, blue $\beta=-1$, white $\beta=0$, pink $\beta=1$, and brown $\beta=2$ noise). Each noise type was added at 128 different intensities (linearly ranging from 0.001 to 3). Examples of generated signals are presented in **Figure 1**.
 
-
-We started by generating 6 types of signals, one random-walk, two oscillatory signals made (with one made of harmonic frequencies that results in a self-repeating - fractal-like - signal), two complex signals derived from Lorenz systems (with parameters [$\sigma = 10, \beta = 2.5, \rho = 28$]; and [$\sigma = 20, \beta = 2, \rho = 30$], respectively) and one EEG-like simulated signal. Each of this signal was iteratively generated at 6 different lengths (ranging from 500 to 3000 by 500 samples). The resulting vectors were standardized and each were added 5 types of $(1/f)^\beta$ noise (namely violet $\beta=-2$, blue $\beta=-1$, white $\beta=0$, pink $\beta=1$, and brown $\beta=2$ noise). Each noise type was added at 128 different intensities (linearly ranging from 0.001 to 3). Examples of generated signals are presented in **Figure 1**.
-
-The combination of these parameters resulted in a total of `r 128*6*6*5` signal iterations. For each of them, we computed 112 complexity indices, and additional basic metrics such as the *length* of the signal and its dominant *frequency*. We also included a *random* number to make sure that our our dimensionality analyses accurately discriminate this unrelated feature. The parameters used (such as the time-delay $\tau$ or the embedding dimension) are documented in the data generation script. For a complete description of the various indices included, please refer to NeuroKit's documentation at **https://neuropsychology.github.io/NeuroKit**, as well as to the data generation script.
+The combination of these parameters resulted in a total of `r 128*6*6*5` signal iterations. For each of them, we computed 112 complexity indices, as well as additional basic metrics such as the *length* of the signal and its dominant *frequency*. We also included a *random* vector to ensure that our dimensionality analyses accurately discriminates this unrelated feature. The parameters used (such as the time-delay $\tau$ or the embedding dimension) are documented in the data generation script. For a complete description of the various indices included, please refer to NeuroKit's documentation at [**https://neuropsychology.github.io/NeuroKit**](https://neuropsychology.github.io/NeuroKit){.uri}, in addition to the data generation script.
 
 ## Results
 
-The data analysis script and the data are fully available at
-**github.com/DominiqueMakowski/ComplexityStructure**.
-The analysis was performed in R using the *easystats* collection of packages [@correlationArticle; @seeArticle; @parametersArticle; @modelbasedPackage]. As the results are primarily presented in a graphical way via the figures, the code to fully reproduce them is also included.
-
+The data analysis script and the data are fully available at **github.com/DominiqueMakowski/ComplexityStructure**. The analysis was performed in R using the *easystats* collection of packages [@correlationArticle; @seeArticle; @parametersArticle; @modelbasedPackage]. As the results are primarily presented graphically via the figures, the code to fully reproduce them is also included in the analysis script.
 
 ```{r message=FALSE, warning=FALSE, results='hide', echo=FALSE}
 df <- read.csv("data_Complexity_part1.csv") |>
@@ -293,7 +287,6 @@ colors <- c(
 
 ### Computation Time
 
-
 ```{r message=FALSE, warning=FALSE, results='hide', echo=FALSE}
 order <- df |>
   group_by(Index) |>
@@ -303,6 +296,7 @@ order <- df |>
 
 df <- mutate(df, Index = fct_relevel(Index, as.character(order$Index)))
 ```
+
 ```{r computationtime, echo=FALSE, fig.height=10*1.25, fig.width=16*1.25, message=FALSE, warning=FALSE, cache=cache, include=FALSE, eval=FALSE}
 p <- df |>
   filter(!Index %in% c("Length", "Noise", "Random", "Frequency")) |>
@@ -320,10 +314,10 @@ p <- df |>
 # ggsave("figures/computation_time-1.png", p, height=10*1.25, width=16*1.25)
 # p
 ```
+
 ```{r computationtime2, echo=FALSE, fig.cap="Median computation time difference between the different complexity indices algorithms.", fig.height=10*1.25, fig.width=16*1.25, message=FALSE, warning=FALSE, cache=FALSE, out.width="100%", eval=FALSE}
 knitr::include_graphics("figures/computation_time-1.png")
 ```
-
 
 ```{r time1, message=FALSE, warning=FALSE, include=FALSE, eval=FALSE, fig.cap="Median computation time difference between the different complexity indices algorithms, as well as variability as a function of signal lengths (represented by different line colors). The indices are grouped in sections (background color) according to their median computation time. Note that the time is expressed in arbitrary units as it is intended to convey differences, as the actual time would depend on the system specifications.", fig.height=10*1.25, fig.width=16*1.25, cache=cache, include=FALSE, eval=FALSE}
 dfsummary <- df |>
@@ -363,7 +357,6 @@ dfsummary |>
   labs(y = "Time to compute", x = NULL, color = "Signal length")
 ```
 
-
 ```{r time2, message=FALSE, warning=FALSE, include=FALSE, eval=FALSE}
 df |>
   filter(!Index %in% c("Length", "Noise", "Random", "Frequency")) |>
@@ -379,13 +372,11 @@ df |>
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
-Firstly, one should note that the computation times presented in **Figure 2** are relative (in arbitrary units) and do not correspond to real times, as these would highly depend on the system specifications. Rather, the goal here was to convey some intuition on the differences between different classes of indices (using the same machine and the same language of implementation, i.e., Python). While it is possible that computational advances or improvements in the code efficiency might change some of these values, we believe that the "big picture" should remain fairly stable, as it is to a large extent driven by the inherent nature of the algorithms under consideration.
+Firstly, one should note that the computation times presented in **Figure 2** are relative (in arbitrary units) and do not correspond to real times, as these would highly depend on the system specifications. Rather, the goal here was to provide a guide on the differences between different classes of indices (using the same machine and the same language of implementation, i.e., Python). While it is possible that computational advances or improvements in the code efficiency might change some of these values, we believe that the overarching results should remain fairly stable, given that it is largely driven by the inherent nature of the algorithms under consideration.
 
-Despite the relative shortness of the signals considered (a few thousand points at most), the fully-parallelized data generation script took about 24h to run on a 48-cores machine. After summarizing and sorting the indices by computation time, the most striking feature is the order of magnitude of difference between the fastest and slowest indices. Additionally, some indices are particularly sensitive to the signal length, a property which combined with computational cost led to indices being 100,000 times slower to compute than others.
+Despite the relative shortness of the signals considered (a few thousand points at most), the fully-parallelized data generation script took around 24 hours to run on a 48-cores machine. After summarizing and sorting the indices by computation time, the feature that struck out was the order of magnitude of difference between the fastest and slowest indices. Additionally, some indices were particularly sensitive to the signal length, a property which in combination with its computational cost, led to these indices being 100,000 times slower to compute than others.
 
-In particular, multiscale indices were among the slowest to compute due to their iterative nature (a given index being computed multiple times on coarse-grained subseries of the signal). Indices related to Recurrence Quantification Analysis (RQA) were also relatively slow and did not scale well with signal length.
-
-
+In particular, multiscale indices were among the slowest to compute due to their iterative nature (a given index being computed multiple times on coarse-grained sub-series of the signal). Indices related to Recurrence Quantification Analysis (RQA) were also relatively slow to calibrate and did not scale well with signal length.
 
 ```{r message=FALSE, warning=FALSE, results='hide', echo=FALSE}
 # Show and filter out NaNs
@@ -402,7 +393,6 @@ df <- df |>
   standardize(select = "Result") |>
   ungroup()
 ```
-
 
 <!-- ### Duplicates -->
 
@@ -502,22 +492,18 @@ data <- data |>
 cor <- get_cor(data, plot = TRUE)
 ```
 
-For the subsequent analyses, we removed statistically redundant indices (which absolute correlation was equal to 1.0), such as
-*NLDFD* - identical to *LL*,
-*ShanEn (15)* - identical to *ShanEn (9)*,
-and *CREn (15)* - identical to *CREn (9)*.
-This resulting in a pool of `r ncol(data)` indices.
-
+For the subsequent analyses, we removed statistically redundant indices (which absolute correlation was equal to 1.0), such as *NLDFD* - identical to *LL*, *ShanEn (15)* - identical to *ShanEn (9)*, and *CREn (15)* - identical to *CREn (9)*. This results in a pool of `r ncol(data)` indices.
 
 ### Correlation
 
-The Pearson correlation analysis revealed that complexity indices, despite their multitude and their conceptual specificities, do indeed share similarities. They form two major clusters that are easily observable (the blue and the red groups in **Figure 3**). That being said, these two anti-correlated groups are mostly revealing of the fact that some indices, by design, index the "predictability", whereas others, the "randomness", and thus are negatively related to one another. In order to extract finer groupings, further analysis procedures are applied below.
+The Pearson correlation analysis revealed that complexity indices, despite their multitude and their conceptual specificities, do indeed share similarities. In particular, they formed two major clusters that were easily observable (the blue and the red groups in **Figure 3**). That being said, the resultant finding of these two anti-correlated groups are indicative that some complexity indices, by design, index the "predictability" characteristic of signal, whereas others, the "randomness", and thus are negatively related to one another. In order to extract finer groupings, further analysis procedures were applied below.
 
 ### Factor Analysis
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
 r <- correlation::cor_smooth(as.matrix(cor))
 ```
+
 ```{r nfactors, fig.cap="Agreement procedure for the optimal number of factors.", fig.height=7, fig.width=14, message=FALSE, warning=FALSE, include=FALSE, eval=TRUE, cache=cache}
 n <- parameters::n_factors(data, cor = r, n_max = 20,
                            algorithm = "ml",
@@ -526,7 +512,6 @@ n
 plot(n) +
   see::theme_modern()
 ```
-
 
 ```{r message=FALSE, warning=FALSE}
 selection <- c(
@@ -549,7 +534,7 @@ selection <- c(
 )
 ```
 
-```{r loadings, message=FALSE, warning=FALSE, fig.width=12, fig.height=18, fig.cap="Factor loadings of the complexity indices, colored by the factor they represent the most (center). On the left, the median computation times and on the right, the archetypicity - the inverse of factor profile complexity, i.e., the extent to which each index is a pure representative of its dominant factor. This measure is low for indices that equally load on different factors)."}
+```{r loadings, message=FALSE, warning=FALSE, fig.width=12, fig.height=18, fig.cap="Factor loadings of the complexity indices, colored by the factor they represent the most (center). On the left, the median computation times and on the right, the archetypicity - the inverse of factor profile complexity (i.e., the extent to which each index is a pure representative of its dominant factor; this measure is low for indices that equally load on different factors)"}
 n <- 13
 rez <- parameters::factor_analysis(data, cor = r, n = n, rotation = "varimax", sort = TRUE, fm = "ml")
 # rez <- parameters::principal_components(data, n = 15, sort = TRUE)
@@ -674,25 +659,15 @@ p3 <- rez |>
 (p2 | p1 | p3) + patchwork::plot_layout(widths = c(1, 2, 1)) +  patchwork::plot_annotation(title = "Computation Time and Factor Loading", theme = theme(plot.title = element_text(hjust = 0.5, face = "bold")))
 ```
 
-The agreement procedure for the optimal number of factors suggested that the `r ncol(data)` indices can be mapped on a multidimensional space of `r n` orthogonal latent factors, that we extracted using a *varimax* rotation. We then took interest in the loading profile of each index, and in particular the latent dimension that it maximally relates to (see **Figure 4**). Below are a description of factors that we found to be interpretable.
+The agreement procedure for the optimal number of factors suggested that the `r ncol(data)` indices can be mapped on a multidimensional space of `r n` orthogonal latent factors, that we extracted using a *varimax* rotation. We then took interest in the loading profile of each index, and in particular the latent dimension that it maximally relates to (see **Figure 4**). Below are a description of the factors that we found to be interpretable.
 
-The first extracted factor is the closest to the largest amount of indices, and is positively loaded by indices that are sensitive to the deviation of consecutive differences (e.g., *LL*, *PFD (Mean)*) as well as indices that capture the amplitude of fluctuations (*DispEn (fluctuation)*, *MFDFA (Max)*). In line with this, this factor was negatively loaded by indices related to Detrended Fluctuation Analysis (*DFA*), which tends to index the presence of long-term correlations and repetitions. As such, this latent factor might be related to the predominance of short-term vs. long-term unpredictability.
+The first extracted factor is the closest to the largest amount of indices, and is positively loaded by indices that are sensitive to the deviation of consecutive differences (e.g., *LL*, *PFD (Mean)*) as well as indices that capture the amplitude of fluctuations (*DispEn (fluctuation)*, *MFDFA (Max)*). In line with this, this factor was negatively loaded by indices related to Detrended Fluctuation Analysis (*DFA*), which tends to index the presence of long-term correlations and repetitions. As such, this latent factor might be associated with the predominance of short-term vs. long-term unpredictability.
 
-The second factor was strongly loaded by by indices that measure the feature-richeness of the signal's system (as most of them operate on a state-space decomposition). It is positively related to *SVDEn* and the Kozachenko-Leonenko differential entropy (*KLEn*), and negatively with the RQA *Recurrence Rate* and *Hjorth* Complexity.
+The second factor was strongly loaded by by indices that measure the feature-richeness of the signal's system (as most of them operate on a state-space decomposition). It was found to be positively related to *SVDEn* and the Kozachenko-Leonenko differential entropy (*KLEn*), and negatively to the RQA *Recurrence Rate* and *Hjorth* Complexity.
 
-The third factor was loaded predominantlys by permutation-based metrics (*PEn*, *WPEn*, *BubblEn*, etc.).
-The fourth factor included multiscale indices, such as *MSWPEn*.
-The fifth factor was strongly loaded by signal *length*, and thus might not capture features of complexity *per se*. Indices with the most relation to it were indices known to be sensitive to signal length, such as *ApEn*.
-The sixth factor was loaded by indices in which the signal or the Poincaré plot was discretized via binning or gridding, respectively.
-<!-- The seventh factor was loaded by *IncrEn* -->
-The ninth factor was loaded by *EnofEn* and Kolmogorov Entropy (*K2En*).
-The tenth factor was loaded positively by the amount of noise, and negatively by multifractal indices such as *MFDFA (Width)*, suggesting a sensitivity to regularity.
-Finally, as a manipulation check for our factorization method, the random vector did not load unto any factors.
-
-
+The third factor was loaded predominantly by permutation-based metrics (*PEn*, *WPEn*, *BubblEn*, etc.). The fourth factor included multiscale indices, such as *MSWPEn*. The fifth factor was strongly loaded by signal *length*, and thus might not capture features of complexity *per se*. Indices with the most relation to it were indices generally known to be sensitive to signal length, such as *ApEn*. The sixth factor was loaded by indices in which the signal or the Poincaré plot was discretized via binning or gridding, respectively. <!-- The seventh factor was loaded by *IncrEn* --> The ninth factor was loaded by *EnofEn* and Kolmogorov Entropy (*K2En*). The tenth factor was loaded positively by the amount of noise, and negatively by multifractal indices such as *MFDFA (Width)*, suggesting a sensitivity to regularity. Finally, as a manipulation check for our factorization method, the random vector did not load unto any factors.
 
 ### Hierarchical Clustering and Connectivity Network
-
 
 ```{r ggm, message=FALSE, warning=FALSE, fig.width=13, fig.height=13, fig.cap="Correlation network of the complexity indices. Only the links where |r| > 0.6 are displayed.", cache=cache}
 library(ggraph)
@@ -742,8 +717,6 @@ p1 <- g |>
 p1
 ```
 
-
-
 ```{r clustering, message=FALSE, warning=FALSE, fig.width=13.4, fig.height=13.4, fig.cap = "Dendrogram representing the hierarchical clustering of the complexity indices.", cache=cache}
 clust <- data |>
   select(-Length, -Random, -Frequency, -Noise) |>
@@ -786,14 +759,11 @@ pclust <- dat |>
 pclust
 ```
 
-For illustration purposes, we represented the correlation matrix as a connectivity graph (see **Figure 5**). We then ran a hierarchical clustering (with a Ward D2 distance) to provide additional information or confirmation about the groups discussed above. This allowed us to fine-grain our recommendations of complimentary complexity indices (see **Figure 6**).
-
-
+For illustration purposes, we represented the correlation matrix as a connectivity graph (see **Figure 5**). We then ran a hierarchical clustering (with a Ward D2 distance) to provide additional information or confirmation about the groups discussed above. This allowed us to fine-grain our recommendations for complimentary complexity indices (see **Figure 6**).
 
 ### Indices Selection
 
-
-```{r varexplained, echo=FALSE, fig.cap="Variance of the whole dataset of indices explained by the subselection. Each line represents a random number of selected variables. The green line represents the optimal order (i.e., the relative importance) that maximizes the variance explained. The dotted blue line represents the cumulative relative median computation time of the selected indices, and shows that MFDFA and multiscale indices are the most costly algorithms.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, cache=cache}
+```{r varexplained, echo=FALSE, fig.cap="Variance of the whole dataset of indices explained by the subselection. Each line represents a random number of selected variables. The green line represents the optimal order (i.e., the relative importance) that maximizes the variance explained. The dotted blue line represents the cumulative relative median computation time of the selected indices, and shows that MFDFA and multiscale indices are the most resource-costly algorithms.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, cache=cache}
 dat <- select(data, -Random, -Frequency, -Noise, -Length)
 
 SumCy <- sum(cov(dat), na.rm = TRUE)
@@ -895,22 +865,22 @@ p5 <- varex |>
 p5
 ```
 
-The selection of a subset of indices was based on the following considerations: 1) high loadings on one predominant latent dimension, with additional attention to the pattern of secondary loadings. For instance, an index with a positive factor 1 loading and a negative factor 2 loading could complement another index with a similar factor 1 loading, but a positive factor 2 loading. This was helped by 2) the hierarchical clustering dendrogram, with which we attempted to indices from each (meaningful) higher order clusters. Items related to clusters that we know were related to noise, length or other artifacts were omitted. 3) A preference for indices with relatively shorter computation times. This yielded a selection of 12 indices. Next, we computed the cumulative variance explained of this selection in respect to the entirety of indices, and derived the optimal order to maximize the variance explained (see **Figure 7**). The 12 included indices, representing `r insight::format_value(max(optim$VarExplained), as_percent=TRUE)` of the variance of the whole dataset, were:
+The following selection of a subset of indices was based on a set of considerations: 1) high loadings on one predominant latent dimension, with additional attention to the pattern of secondary loadings. For instance, an index with a positive factor 1 loading and a negative factor 2 loading could complement another index with a similar factor 1 loading, but a positive factor 2 loading. This was facilitated by 2) the hierarchical clustering dendrogram (see **Figure 6**), with which we attempted to extract indices from each (meaningful) higher order clusters. Items related to clusters that we determine as being largely explained by noise, length or other artifacts were omitted. 3) A preference for indices with relatively shorter computation times. This yielded a selection of 12 indices. Next, we computed the cumulative variance explained of this selection in respect to the entirety of indices examined, and derived the optimal order to maximize the variance explained (see **Figure 7**). The 12 included indices, representing `r insight::format_value(max(optim$VarExplained), as_percent=TRUE)` of the variance of the whole dataset, were:
 
-- *CWPEn*: The Conditional Weighted Permutation Entropy is based on the difference of weighted entropy between that obtained at an embedding dimension $m$ and that obtained at $m+1$ [@unakafov2014conditional].
-- *LL*: The Line Length index stems out of a simplification of Katz' fractal dimension (*KFD*) algorithm [@esteller2001line] and corresponds to the average of consecutive absolute differences. It is equivalent *NDLFD*, the Fractal dimension via Normalized Length Density [@kalauzi2009extracting]. As it captures the amplitude 1-lag fluctuations, this index is likely sensitive to noise in the series.
-- *BubbEn*:
-- *MSWPEn*: The Multiscale Weighted Permutation Entropy is the entropy of weighted ordinal descriptors of the time-embedded signal computed at different scales obtained by a coarsegraining procedure [@fadlallah2013weighted].
-- *MFDFA (Max)* :  The value of singularity spectrum *D* corresponding to the maximum value of singularity exponent *H*.
-- *Hjorth*: Hjorth's Complexity is defined as the ratio of the mean frequency of the first derivative of the signal to the mean frequency of the signal [@hjorth1970eeg].
-- *SVDEn*: The Singular Value Decomposition (SVD) Entropy quantifies the amount of eigenvectors needed for an adequate representation of the system [@roberts1999temporal].
-- *MFDFA (Width)*: The width of the multifractal singularity spectrum [@kantelhardt2002multifractal] obtained via Detrended Fluctuation Analysis (DFA).
-- *MFDFA (Mean)* : The mean of the maximum and minimum values of singularity exponent *H*, which quantifies the average fluctuations of the signal.
-- *MFDFA (Peak)* : The value of the singularity exponent *H* corresponding to peak of singularity dimension *D*. It is a measure of the self-affinity of the signal, and a high value is an indicator of high degree of correlation between the data points.
-- *MFDFA (Increment)*: The cumulative function of the squared increments of the generalized Hurst's exponents between consecutive moment orders [@faini2021multiscale].
-- *AttEn*: The Attention Entropy is based on the frequency distribution of the intervals between the local maxima and minima of the time series [@yang2020classification].
+-   *CWPEn*: The Conditional Weighted Permutation Entropy is based on the difference of weighted entropy between that obtained at an embedding dimension $m$ and that obtained at $m+1$ [@unakafov2014conditional].
+-   *LL*: The Line Length index stems out of a simplification of Katz' fractal dimension (*KFD*) algorithm [@esteller2001line] and corresponds to the average of consecutive absolute differences. It is equivalent to *NDLFD*, the Fractal dimension via Normalized Length Density [@kalauzi2009extracting]. As it captures the amplitude 1-lag fluctuations, this index is likely sensitive to noise in the series.
+-   *BubbEn*: The Bubble Entropy is based on Permutation Entropy. It uses the *Bubble sort* algorithm and counts the number of swaps each vector undergoes in the embedding space instead of ranking their order [@bubblee2017]
+-   *MSWPEn*: The Multiscale Weighted Permutation Entropy is the entropy of weighted ordinal descriptors of the time-embedded signal computed at different scales obtained by a coarse-graining procedure [@fadlallah2013weighted].
+-   *MFDFA (Max)* : The value of singularity spectrum *D* corresponding to the maximum value of singularity exponent *H*.
+-   *Hjorth*: Hjorth's Complexity is defined as the ratio of the mean frequency of the first derivative of the signal to the mean frequency of the signal [@hjorth1970eeg].
+-   *SVDEn*: The Singular Value Decomposition (SVD) Entropy quantifies the amount of eigenvectors needed for an adequate representation of the system [@roberts1999temporal].
+-   *MFDFA (Width)*: The width of the multifractal singularity spectrum [@kantelhardt2002multifractal] obtained via Detrended Fluctuation Analysis (DFA).
+-   *MFDFA (Mean)* : The mean of the maximum and minimum values of singularity exponent *H*, which quantifies the average fluctuations of the signal.
+-   *MFDFA (Peak)* : The value of the singularity exponent *H* corresponding to peak of singularity dimension *D*. It is a measure of the self-affinity of the signal, and a high value is an indicator of high degree of correlation between the data points.
+-   *MFDFA (Increment)*: The cumulative function of the squared increments of the generalized Hurst's exponents between consecutive moment orders [@faini2021multiscale].
+-   *AttEn*: The Attention Entropy is based on the frequency distribution of the intervals between the local maxima and minima of the time series [@yang2020classification].
 
-Finally, we visualized the expected value of our selection of indices for different types of signals under different conditions of noise (see **Figure 8**). This confirmed that *LL* was primarily driven by the noise intensity (which is expected, as they capture the variability of successive differences). The other indices appear to be able to discriminate between the various types of signals (when the signal is not dominated by noise).
+Finally, we visualized the expected value of our selection of indices for different types of signals under different conditions of noise (see **Figure 8**). This confirmed that *LL* was primarily driven by the noise intensity (which is expected, as they capture the variability of successive differences). The other indices appear capable of discriminating between the various types of signals (when the signal is not dominated by noise).
 
 ```{r models, message=FALSE, warning=FALSE, fig.width=14, fig.height=7, fig.cap="Visualization of the expected value of a selection of indices depending on the signal type and of the amount of noise.", cache=cache}
 model <- mgcv::gam(Result ~ s(Noise_Intensity, by = interaction(Index, Signal)),
@@ -944,17 +914,15 @@ estimate_means(model, at = c("Index", "Signal", "Noise_Intensity")) |>
   labs(y = "Standardized Index Value", x = "Noise Intensity", color = "Signal Type")
 ```
 
-
 ## Discussion
 
-As the span and application of complexity science grows, a systematic approach to compare their "performance" becomes necessary to reinforce the clarity and structure of the field. The term *performance* is here to be understood in a relative sense, as any such endeavor faces the "hard problem" of complexity science: various objective properties of signals [e.g., short-term vs. long-term variability, auto-correlation, information, randomness, @namdari2019; @xiong2017] participate in forming together over-arching concepts such as "complex" and "chaotic". Indices that are sensitive to some of these objective properties are thus conceptually linked through these over-arching framework. However, it remains unclear how these high-level concepts transfer back, in a top-down fashion, into a combination of lower-level features. As such, it is conceptually complicated to benchmark complexity measures against "objectively" complex vs. non-complex signals. In other words, we know that different objective signal characteristics can contribute to the "complexity" of a signal, but there is not a one-to-one correspondence between the latter and the former.
+As the span and application of complexity science grows, a systematic approach to compare their "performance" becomes necessary to reinforce the clarity and structure of the field. The term *performance* used here is to be understood in a relative sense, as any such endeavor faces the "hard problem" of complexity science: various objective properties of signals [e.g., short-term vs. long-term variability, auto-correlation, information, randomness, @namdari2019; @xiong2017] participate in forming overarching concepts such as "complex" and "chaotic". Indices that are sensitive to some of these objective properties are thus conceptually linked through such over-arching frameworks. However, it remains unclear how these high-level concepts transfer back, in a top-down fashion, into a combination of lower-level features. As such, it is conceptually complicated to benchmark complexity measures against "objectively" complex vs. non-complex signals. In other words, while we are aware that different objective signal characteristics can contribute to the "complexity" of a signal, there is not a one-to-one correspondence between the latter and the former.
 
-To circumvent the aforementioned consideration, we adopted a paradigm where we generated different types of signals to which we systematically added distinct types - and amount - of perturbations. It is to note that  we did not seek at measuring how complexity indices can discriminate between these signal types, nor did we attempt at mimicking real-life signals or scenarios. The goal was instead to generate enough variability to reliably map the relationships between the indices.
+To circumvent the aforementioned consideration, we adopted a paradigm where we generated different types of signals to which we systematically added distinct types - and amount - of perturbations. It should be noted that we did not seek to measure how complexity indices can discriminate between these signal types, nor did we attempt at mimicking real-life signals or scenarios. The goal was instead to generate enough variability to reliably map the relationships between the indices.
 
-Our results empirically confirm the plurality of underlying components of complexity (although it is here defined somewhat circularly as what is measured by complexity indices), and more importantly show that complexity indices vary in their sensitivity to various orthogonal latent dimensions. However, the limited possibilities of interpretation of these dimensions is a limitation of the present investigation, and future studies are needed to investigate and discuss them in greater depth (for instance, by modulating specific properties of signals and measuring their impact on these latent dimensions).
+Our results empirically confirm the plurality of underlying components of complexity (although it is here defined somewhat circularly as what is measured by complexity indices), and more importantly show that complexity indices vary in their sensitivity to various orthogonal latent dimensions. However, the constraints in interpreting these dimensions is a limitation of the present investigation, and future studies are needed to investigate and discuss them in greater depth (for instance, by modulating specific properties of signals and measuring their impact on these latent dimensions).
 
-Taking into account the increasing role of complexity science as a field and the sheer number of complexity indices already published, our study aimed at empirically map the relationship between various indices and provide useful information to guide future researchers in their selection. Indices that were highlighted as encapsulating information about different underlying dimensions at a relatively low computational cost include *CWPEn*, *Line Length (LL)*, *BubbEn*, *MSWPEn*, *MFDFA (Max)*, *Hjorth Complexity*, *SVDEn*, *MFDFA (Width)*, *MFDFA (Mean)*, *MFDFA (Peak)*, *MFDFA (Fluctuation)*, *AttEn*. These indices might be complimentary in offering a comprehensive profile of the complexity of a time series. Moving forward, future studies are needed to validate, analyze and interpret the nature of the dominant sensitivities of indices groups, so that studies results can be more easily interpreted and integrated into new research and novel theories.
-
+Taking into account the increasing role of complexity science as a field and the sheer number of complexity indices already published, our study aimed to empirically map the relationship between various indices and provide useful information that could act as a guide for future researchers in their selection of complexity measures. In particular, indices that were highlighted as optimally being able to encapsulate information about different underlying dimensions at a relatively low computational cost include *CWPEn*, *Line Length (LL)*, *BubbEn*, *MSWPEn*, *MFDFA (Max)*, *Hjorth Complexity*, *SVDEn*, *MFDFA (Width)*, *MFDFA (Mean)*, *MFDFA (Peak)*, *MFDFA (Fluctuation)*, *AttEn*. As such, these indices might be complimentary in offering a comprehensive profile of the complexity of a time series. Moving forward, future studies are needed to validate, analyze and interpret the nature of the indices groups' dominant sensitivities. In doing so, complexity findings in prospective studies can be more easily interpreted and integrated into new research and novel theories.
 
 ## Acknowledgments
 
