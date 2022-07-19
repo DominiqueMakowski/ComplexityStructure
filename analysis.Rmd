@@ -671,7 +671,7 @@ p3 <- rez |>
   )
 
 
-(p2 | p1 | p3) + patchwork::plot_layout(widths = c(1, 2, 1)) +  patchwork::plot_annotation(title = "Computation Time and Factor Loading", theme = theme(plot.title = element_text(hjust = 0.5, face = "bold")))
+(p2 | p1 | p3) + patchwork::plot_layout(widths = c(1, 2, 1)) +  patchwork::plot_annotation(title = "Complexity Indices Computation Time and Factor Loading Profile", theme = theme(plot.title = element_text(hjust = 0.5, face = "bold")))
 ```
 
 The agreement procedure for the optimal number of factors suggested that the `r ncol(data)` indices can be mapped on a multidimensional space of `r n` orthogonal latent factors, that we extracted using a *varimax* rotation. We then took interest in the loading profile of each index, and in particular the latent dimension that it maximally relates to (see **Figure 4**). Below are a description of factors that we found to be interpretable.
