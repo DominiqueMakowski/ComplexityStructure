@@ -10,7 +10,7 @@
 
 \centering
 \includegraphics{./figures/time-1.pdf}
-\caption{\label{fig:time}Median computation time difference between the different complexity indices algorithms, as well as variability as a function of signal lengths (represented by different line colors). The indices are grouped in sections (background color) according to their median computation time. Note that the time is expressed in arbitrary units as it is intended to convey differences, as the actual time would depend on the system specifications.}
+\caption{\label{fig:time}Median computation time difference between the different complexity indices algorithms, as well as variability as a function of signal lengths (represented by different line colors). The indices are grouped in sections (background color) according to their median computation time. Note that the time is expressed in arbitrary units as it is intended to convey differences, since the actual time would depend on the system specifications.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
