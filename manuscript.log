@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.1)  19 JUL 2022 22:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.1)  20 JUL 2022 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -692,20 +692,32 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout4 = `manuscript.fff'.
 
 (manuscript.fff) [5] [6] [7] [8]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 331.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 324.
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [9] [10] [11] [12]
+)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[13]
+[9]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[10]
+Underfull \vbox (badness 2443) has occurred while \output is active []
+
+[11]
+Underfull \vbox (badness 4752) has occurred while \output is active []
+
+[12] [13]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[15] [16] AED endfloat: Processing end Figures and Tables (./manuscript.fff
-<./figures/signals-1.pdf, id=190, 722.7pt x 1156.32pt>
+[15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[16] [17] AED endfloat: Processing end Figures and Tables (./manuscript.fff
+<./figures/signals-1.pdf, id=198, 722.7pt x 1156.32pt>
 File: ./figures/signals-1.pdf Graphic file (type pdf)
 <use ./figures/signals-1.pdf>
 Package pdftex.def Info: ./figures/signals-1.pdf  used on input line 5.
@@ -713,56 +725,61 @@ Package pdftex.def Info: ./figures/signals-1.pdf  used on input line 5.
 
 LaTeX Warning: Float too large for page by 57.16585pt on input line 7.
 
-<./figures/correlation-1.pdf, id=191, 1156.32pt x 1084.05pt>
+<./figures/time-1.pdf, id=199, 1445.4pt x 903.375pt>
+File: ./figures/time-1.pdf Graphic file (type pdf)
+<use ./figures/time-1.pdf>
+Package pdftex.def Info: ./figures/time-1.pdf  used on input line 12.
+(pdftex.def)             Requested size: 469.74944pt x 293.5934pt.
+<./figures/correlation-1.pdf, id=200, 1156.32pt x 1084.05pt>
 File: ./figures/correlation-1.pdf Graphic file (type pdf)
 <use ./figures/correlation-1.pdf>
-Package pdftex.def Info: ./figures/correlation-1.pdf  used on input line 12.
+Package pdftex.def Info: ./figures/correlation-1.pdf  used on input line 19.
 (pdftex.def)             Requested size: 469.75385pt x 440.39424pt.
-<./figures/loadings-1.pdf, id=192, 867.24pt x 1300.86pt>
+<./figures/loadings-1.pdf, id=201, 867.24pt x 1300.86pt>
 File: ./figures/loadings-1.pdf Graphic file (type pdf)
 <use ./figures/loadings-1.pdf>
-Package pdftex.def Info: ./figures/loadings-1.pdf  used on input line 19.
+Package pdftex.def Info: ./figures/loadings-1.pdf  used on input line 26.
 (pdftex.def)             Requested size: 433.63217pt x 650.44826pt.
 
-LaTeX Warning: Float too large for page by 57.1857pt on input line 21.
+LaTeX Warning: Float too large for page by 57.1857pt on input line 28.
 
-<./figures/ggm-1.pdf, id=193, 939.51pt x 939.51pt>
+<./figures/ggm-1.pdf, id=202, 939.51pt x 939.51pt>
 File: ./figures/ggm-1.pdf Graphic file (type pdf)
 <use ./figures/ggm-1.pdf>
-Package pdftex.def Info: ./figures/ggm-1.pdf  used on input line 26.
+Package pdftex.def Info: ./figures/ggm-1.pdf  used on input line 33.
 (pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
-<./figures/clustering-1.pdf, id=194, 967.615pt x 967.615pt>
+<./figures/clustering-1.pdf, id=203, 967.615pt x 967.615pt>
 File: ./figures/clustering-1.pdf Graphic file (type pdf)
 <use ./figures/clustering-1.pdf>
-Package pdftex.def Info: ./figures/clustering-1.pdf  used on input line 33.
+Package pdftex.def Info: ./figures/clustering-1.pdf  used on input line 40.
 (pdftex.def)             Requested size: 469.75043pt x 469.75043pt.
-<./figures/varexplained-1.pdf, id=195, 722.7pt x 505.89pt>
+<./figures/varexplained-1.pdf, id=204, 722.7pt x 505.89pt>
 File: ./figures/varexplained-1.pdf Graphic file (type pdf)
 <use ./figures/varexplained-1.pdf>
-Package pdftex.def Info: ./figures/varexplained-1.pdf  used on input line 40.
+Package pdftex.def Info: ./figures/varexplained-1.pdf  used on input line 47.
 (pdftex.def)             Requested size: 469.76045pt x 328.8323pt.
-<./figures/models-1.pdf, id=196, 1011.78pt x 505.89pt>
+<./figures/models-1.pdf, id=205, 1011.78pt x 505.89pt>
 File: ./figures/models-1.pdf Graphic file (type pdf)
 <use ./figures/models-1.pdf>
-Package pdftex.def Info: ./figures/models-1.pdf  used on input line 47.
+Package pdftex.def Info: ./figures/models-1.pdf  used on input line 54.
 (pdftex.def)             Requested size: 469.76266pt x 234.88132pt.
-) [17 <./figures/signals-1.pdf>] [18 <./figures/correlation-1.pdf>] [19 <./figures/loadings-1.pdf>] [20 <./figures/ggm-1.pdf>] [21 <./figures/clustering-1.pdf>] [22 <./figures/varexplained-1.pdf>] [23 <./figures/models-1.pdf>] (./manuscript.aux)
+) [18 <./figures/signals-1.pdf>] [19 <./figures/time-1.pdf>] [20 <./figures/correlation-1.pdf>] [21 <./figures/loadings-1.pdf>] [22 <./figures/ggm-1.pdf>] [23 <./figures/clustering-1.pdf>] [24 <./figures/varexplained-1.pdf>] [25 <./figures/models-1.pdf>] (./manuscript.aux)
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 645DA7CA18F3CEF0A32AB48B6BE32E97;1401.
  ) 
 Here is how much of TeX's memory you used:
- 16381 strings out of 480253
- 271093 string characters out of 5892691
- 582109 words of memory out of 5000000
- 33916 multiletter control sequences out of 15000+600000
+ 16393 strings out of 480253
+ 271334 string characters out of 5892691
+ 582582 words of memory out of 5000000
+ 33923 multiletter control sequences out of 15000+600000
  520119 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,11n,77p,2249b,547s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}<c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on manuscript.pdf (23 pages, 2214825 bytes).
+Output written on manuscript.pdf (25 pages, 2227549 bytes).
 PDF statistics:
- 363 PDF objects out of 1000 (max. 8388607)
- 299 compressed objects within 3 object streams
- 87 named destinations out of 1000 (max. 500000)
- 124 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 385 PDF objects out of 1000 (max. 8388607)
+ 316 compressed objects within 4 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 129 words of extra memory for PDF output out of 10000 (max. 10000000)
 
