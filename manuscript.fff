@@ -3,7 +3,14 @@
 
 \centering
 \includegraphics{./figures/signals-1.pdf}
-\caption{\label{fig:signals}Different types of simulated signals, to which was added 5 types of noise (violet, blue, white, pink, and brown) with different intensities. For each signal type, the first row shows the signal with a minimal amount of noise, and the last with a maximal amount of noise.}
+\caption{\label{fig:signals}Different types of simulated signals, to which was added 5 types of noise (violet, blue, white, pink, and brown) with different intensities. For each signal type, the top row shows the signal with a minimal amount of noise, and the bottom row with a maximal amount of noise.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{./figures/time-1.pdf}
+\caption{\label{fig:time}Median computation time difference between the different complexity indices algorithms, as well as variability as a function of signal lengths (represented by different line colors). The indices are grouped in sections (background color) according to their median computation time. Note that the time is expressed in arbitrary units as it is intended to convey differences, as the actual time would depend on the system specifications.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
@@ -17,7 +24,7 @@
 
 \centering
 \includegraphics{./figures/loadings-1.pdf}
-\caption{\label{fig:loadings}Factor loadings of the complexity indices, colored by the factor they represent the most (center). On the left, the median computation times and on the right, the archetypicity - the inverse of factor profile complexity, i.e., the extent to which each index is a pure representative of its dominant factor. This measure is low for indices that equally load on different factors).}
+\caption{\label{fig:loadings}Factor loadings of the complexity indices, colored by the factor they represent the most (center). On the left, the median computation times and on the right, the archetypicity - the inverse of factor profile complexity (i.e., the extent to which each index is a pure representative of its dominant factor, which is low for indices that equally load on different factors).}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
@@ -38,7 +45,7 @@
 
 \centering
 \includegraphics{./figures/varexplained-1.pdf}
-\caption{\label{fig:varexplained}Variance of the whole dataset of indices explained by the subselection. Each line represents a random number of selected variables. The green line represents the optimal order (i.e., the relative importance) that maximizes the variance explained. The dotted blue line represents the cumulative relative median computation time of the selected indices, and shows that MFDFA and multiscale indices are the most costly algorithms.}
+\caption{\label{fig:varexplained}Variance of the whole dataset of indices explained by the subselection. Each line represents a random number of selected variables. The green line represents the optimal order (i.e., the relative importance) that maximizes the variance explained. The dotted blue line represents the cumulative relative median computation time of the selected indices, and shows that MFDFA and multiscale indices are the most resource-costly algorithms.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
