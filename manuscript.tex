@@ -33,16 +33,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={The Structure of Chaos: An Empirical Comparison of Fractal Physiology Complexity Indices using NeuroKit2},
-  pdfauthor={Dominique Makowski1, An Shu Te1, Tam Pham1, Zen J. Lau1, \& S.H. Annabel Chen1, 2, 3, 4},
-  pdflang={en-EN},
-  pdfkeywords={chaos, complexity, fractal, physiology, noise},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -187,6 +177,16 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The Structure of Chaos: An Empirical Comparison of Fractal Physiology Complexity Indices using NeuroKit2},
+  pdfauthor={Dominique Makowski1, An Shu Te1, Tam Pham1, Zen J. Lau1, \& S.H. Annabel Chen1, 2, 3, 4},
+  pdflang={en-EN},
+  pdfkeywords={chaos, complexity, fractal, physiology, noise},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{\textbf{The Structure of Chaos: An Empirical Comparison of Fractal Physiology Complexity Indices using NeuroKit2}}
 \author{Dominique Makowski\textsuperscript{1}, An Shu Te\textsuperscript{1}, Tam Pham\textsuperscript{1}, Zen J. Lau\textsuperscript{1}, \& S.H. Annabel Chen\textsuperscript{1, 2, 3, 4}}
@@ -217,13 +217,13 @@ Complexity quantification, through entropy, information theory and fractal dimen
 \hypertarget{introduction}{%
 \subsection{Introduction}\label{introduction}}
 
-Complexity is an umbrella term for concepts derived from information theory, chaos theory, and fractal mathematics, used to quantify unpredictability, entropy, and/or randomness. Using these approaches to characterize physiological signals (a subfield commonly referred to as ``fractal physiology,'' Bassingthwaighte et al., 2013) has shown promising results in the assessment and diagnostic of the state and health of living systems (Ehlers, 1995; Goetz, 2007; Lau et al., 2021).
+Complexity is an umbrella term for concepts derived from information theory, chaos theory, and fractal mathematics, used to quantify unpredictability, entropy, and/or randomness. Using these approaches to characterize physiological signals (a subfield commonly referred to as ``fractal physiology'' {[}1{]}) has shown promising results in the assessment and diagnostic of the state and health of living systems {[}2--4{]}.
 
-Over the past few decades, there has been an important increase in the number of complexity indices (A. C. Yang \& Tsai, 2013). Although these new procedures are usually mathematically well-defined and theoretically promising, limited empirical evidence is available to understand their similarities and differences (Lau et al., 2021; A. C. Yang \& Tsai, 2013). Moreover, some of these methods are resource-intensive and require long computation times. This complicates their application with techniques that utilise high sampling-rates (e.g., M/EEG) and makes them impractical to implement in real-time settings - such as brain-computer interfaces (Azami et al., 2017; Manis et al., 2018). As such, having empirical data about the computation time of various complexity indices would prove useful, for instance to guide their selection, especially in contexts where time or computational resources are constrained.
+Over the past few decades, there has been an important increase in the number of complexity indices {[}5{]}. Although these new procedures are usually mathematically well-defined and theoretically promising, limited empirical evidence is available to understand their similarities and differences {[}2,5{]}. Moreover, some of these methods are resource-intensive and require long computation times. This complicates their application with techniques that utilise high sampling-rates (e.g., M/EEG) and makes them impractical to implement in real-time settings - such as brain-computer interfaces {[}6,7{]}. As such, having empirical data about the computation time of various complexity indices would prove useful, for instance to guide their selection, especially in contexts where time or computational resources are constrained.
 
-Additionally, the lack of a comprehensive open-source and user-friendly software for computing various complexity indices likely contributes to the scarcity of empirical comparisons (Flood \& Grimm, 2021a). Indeed, many complexity indices are only described mathematically in journal articles, with reusable code seldom made available, therefore limiting their further application and validation (Flood \& Grimm, 2021a; A. C. Yang \& Tsai, 2013). Even when available and open-source, the code implementations of complexity measures are typically found scattered across different packages or scripts, or embedded within a larger goal-directed framework (e.g., \emph{HCTSA}, a time-series comparison tool, Fulcher \& Jones, 2017). To address this lack of unified accessibility, we added a comprehensive set of complexity-related features to \emph{NeuroKit2}, a Python package for physiological signal processing (Makowski et al., 2021). In doing so, we hope to provide users with an easy-to-use software capable of computing a wide range of complexity measures. The code is designed to run quickly and efficiently, while still being written in pure Python (with the help of standard dependencies such as \emph{NumPy} or \emph{Pandas}, Harris et al., 2020; McKinney et al., 2010) to maximize its reusability, transparency, and correctness.
+Additionally, the lack of a comprehensive open-source and user-friendly software for computing various complexity indices likely contributes to the scarcity of empirical comparisons {[}8{]}. Indeed, many complexity indices are only described mathematically in journal articles, with reusable code seldom made available, therefore limiting their further application and validation {[}5,8{]}. Even when available and open-source, the code implementations of complexity measures are typically found scattered across different packages or scripts, or embedded within a larger goal-directed framework (e.g., \emph{HCTSA}, a time-series comparison tool {[}9{]}). To address this lack of unified accessibility, we added a comprehensive set of complexity-related features to \emph{NeuroKit2}, a Python package for physiological signal processing {[}10{]}. In doing so, we hope to provide users with an easy-to-use software capable of computing a wide range of complexity measures. The code is designed to run quickly and efficiently, while still being written in pure Python (with the help of standard dependencies such as \emph{NumPy} or \emph{Pandas} {[}11,12{]}) to maximize its reusability, transparency, and correctness.
 
-Leveraging this tool, the goal of this study is to empirically compare a large number of complexity indices, inspect how they relate to one another, and derive recommendations for indices selection. More specifically, we will quantify the complexity of various types of signals with varying degrees of noise using 112 of the predominantly used indices that are available for computation with \emph{NeuroKit2}. We will then project the results on a latent space through factor analysis, and review the indices that we find the most relevant and interesting in regards to their representation of the latent dimensions. This analysis will be complemented by hierarchical clustering. It should be noted that, even though this is one of the largest empirical comparison of complexity measures to date to our knowledge, the list of indices used is by no means exhaustive, with new indices constantly being developed, such as for instance \emph{symmetropy} (Girault \& Menigot, 2022).
+Leveraging this tool, the goal of this study is to empirically compare a large number of complexity indices, inspect how they relate to one another, and derive recommendations for indices selection. More specifically, we will quantify the complexity of various types of signals with varying degrees of noise using 112 of the predominantly used indices that are available for computation with \emph{NeuroKit2}. We will then project the results on a latent space through factor analysis, and review the indices that we find the most relevant and interesting in regards to their representation of the latent dimensions. This analysis will be complemented by hierarchical clustering. It should be noted that, even though this is one of the largest empirical comparison of complexity measures to date to our knowledge, the list of indices used is by no means exhaustive, with new indices constantly being developed, such as for instance \emph{symmetropy} {[}13{]}.
 
 \hypertarget{methods}{%
 \subsection{Methods}\label{methods}}
@@ -236,14 +236,14 @@ Leveraging this tool, the goal of this study is to empirically compare a large n
 
 The Python script to generate the data can be found at \textbf{\url{https://github.com/DominiqueMakowski/ComplexityStructure}}.
 
-We started by generating 6 types of signals, one random-walk, two oscillatory signals (with one made of harmonic frequencies that results in a self-repeating - fractal-like - signal), two complex signals derived from Lorenz systems (with parameters {[}\(\sigma = 10, \beta = 2.5, \rho = 28\){]}; and {[}\(\sigma = 20, \beta = 2, \rho = 30\){]}, respectively) and one EEG-like simulated signal. Each of these signals was iteratively generated at 6 different lengths (ranging from 500 to 3000 by 500 samples). The resulting vectors were standardized and each were added 5 types of \((1/f)^\beta\) noise (namely violet \(\beta=-2\), blue \(\beta=-1\), white \(\beta=0\), pink \(\beta=1\), and brown \(\beta=2\) noise). Each noise type was added at 128 different intensities (linearly ranging from 0.001 to 3). Examples of generated signals are presented in \textbf{Figure 1}.
+We started by generating 6 types of signals, one random-walk, two oscillatory signals (with one made of harmonic frequencies that results in a self-repeating - fractal-like - signal), two complex signals derived from Lorenz systems (with parameters \(\sigma = 10, \beta = 2.5, \rho = 28\); and \(\sigma = 20, \beta = 2, \rho = 30\), respectively) and one EEG-like simulated signal. Each of these signals was iteratively generated at 6 different lengths (ranging from 500 to 3000 by 500 samples). The resulting vectors were standardized and each were added 5 types of \((1/f)^\beta\) noise (namely violet \(\beta=-2\), blue \(\beta=-1\), white \(\beta=0\), pink \(\beta=1\), and brown \(\beta=2\) noise). Each noise type was added at 128 different intensities (linearly ranging from 0.001 to 3). Examples of generated signals are presented in \textbf{Figure 1}.
 
 The combination of these parameters resulted in a total of 23040 signal iterations. For each of them, we computed 112 complexity indices, as well as additional basic metrics such as the \emph{length} of the signal and its dominant \emph{frequency}. We also included a \emph{random} number at each iteration to ensure that our dimensionality analyses accurately discriminate this unrelated feature (as a manipulation check). The parameters used (such as the time-delay \(\tau\) or the embedding dimension) are documented in the data generation script. For a complete description of the various indices included, please refer to NeuroKit's documentation at \textbf{\url{https://neuropsychology.github.io/NeuroKit}}, in addition to the data generation script.
 
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
 
-The data analysis script and the data are fully available at \textbf{\url{https://github.com/DominiqueMakowski/ComplexityStructure}}. The analysis was performed in R using the \emph{easystats} collection of packages (Lüdecke et al., 2021; Lüdecke et al., 2020; Makowski et al., 2020/2022, 2020). As the results are primarily presented graphically via the figures, the code to fully reproduce them is also included in the analysis script.
+The data analysis script and the data are fully available at \textbf{\url{https://github.com/DominiqueMakowski/ComplexityStructure}}. The analysis was performed in R using the \emph{easystats} collection of packages {[}14--17{]}. As the results are primarily presented graphically via the figures, the code to fully reproduce them is also included in the analysis script.
 
 \hypertarget{computation-time}{%
 \subsubsection{Computation Time}\label{computation-time}}
@@ -321,29 +321,29 @@ The selection of a subset of indices was based on a set of considerations: 1) hi
 \begin{itemize}
 \tightlist
 \item
-  \emph{CWPEn}: The Conditional Weighted Permutation Entropy is based on the difference of weighted entropy between that obtained at an embedding dimension \(m\) and that obtained at \(m+1\) (Unakafov \& Keller, 2014).
+  \emph{CWPEn}: The Conditional Weighted Permutation Entropy is based on the difference of weighted entropy between that obtained at an embedding dimension \(m\) and that obtained at \(m+1\) {[}18{]}.
 \item
-  \emph{LL}: The Line Length index stems out of a simplification of Katz' fractal dimension (\emph{KFD}) algorithm (Esteller et al., 2001) and corresponds to the average of consecutive absolute differences. It is equivalent to \emph{NDLFD}, the Fractal dimension via Normalized Length Density (Kalauzi et al., 2009). As it captures the amplitude 1-lag fluctuations, this index is likely sensitive to noise in the series.
+  \emph{LL}: The Line Length index stems out of a simplification of Katz' fractal dimension (\emph{KFD}) algorithm {[}19{]} and corresponds to the average of consecutive absolute differences. It is equivalent to \emph{NDLFD}, the Fractal dimension via Normalized Length Density {[}20{]}. As it captures the amplitude 1-lag fluctuations, this index is likely sensitive to noise in the series.
 \item
-  \emph{BubbEn}: The Bubble Entropy is based on Permutation Entropy. It uses the \emph{Bubble sort} algorithm and counts the number of swaps each vector undergoes in the embedding space instead of ranking their order (Manis et al., 2017).
+  \emph{BubbEn}: The Bubble Entropy is based on Permutation Entropy. It uses the \emph{Bubble sort} algorithm and counts the number of swaps each vector undergoes in the embedding space instead of ranking their order {[}21{]}.
 \item
-  \emph{MSWPEn}: The Multiscale Weighted Permutation Entropy is the entropy of weighted ordinal descriptors of the time-embedded signal computed at different scales obtained by a coarse-graining procedure (Fadlallah et al., 2013).
+  \emph{MSWPEn}: The Multiscale Weighted Permutation Entropy is the entropy of weighted ordinal descriptors of the time-embedded signal computed at different scales obtained by a coarse-graining procedure {[}22{]}.
 \item
   \emph{MFDFA (Max)} : The value of singularity spectrum \emph{D} corresponding to the maximum value of singularity exponent \emph{H}.
 \item
-  \emph{Hjorth}: Hjorth's Complexity is defined as the ratio of the mean frequency of the first derivative of the signal to the mean frequency of the signal (Hjorth, 1970).
+  \emph{Hjorth}: Hjorth's Complexity is defined as the ratio of the mean frequency of the first derivative of the signal to the mean frequency of the signal {[}23{]}.
 \item
-  \emph{SVDEn}: The Singular Value Decomposition (SVD) Entropy quantifies the amount of eigenvectors needed for an adequate representation of the system (Roberts et al., 1999).
+  \emph{SVDEn}: The Singular Value Decomposition (SVD) Entropy quantifies the amount of eigenvectors needed for an adequate representation of the system {[}24{]}.
 \item
-  \emph{MFDFA (Width)}: The width of the multifractal singularity spectrum (Kantelhardt et al., 2002) obtained via Detrended Fluctuation Analysis (DFA).
+  \emph{MFDFA (Width)}: The width of the multifractal singularity spectrum {[}25{]} obtained via Detrended Fluctuation Analysis (DFA).
 \item
   \emph{MFDFA (Mean)} : The mean of the maximum and minimum values of singularity exponent \emph{H}, which quantifies the average fluctuations of the signal.
 \item
   \emph{MFDFA (Peak)} : The value of the singularity exponent \emph{H} corresponding to peak of singularity dimension \emph{D}. It is a measure of the self-affinity of the signal, and a high value is an indicator of high degree of correlation between the data points.
 \item
-  \emph{MFDFA (Increment)}: The cumulative function of the squared increments of the generalized Hurst's exponents between consecutive moment orders (Faini et al., 2021).
+  \emph{MFDFA (Increment)}: The cumulative function of the squared increments of the generalized Hurst's exponents between consecutive moment orders {[}26{]}.
 \item
-  \emph{AttEn}: The Attention Entropy is based on the frequency distribution of the intervals between the local maxima and minima of the time series (J. Yang et al., 2020).
+  \emph{AttEn}: The Attention Entropy is based on the frequency distribution of the intervals between the local maxima and minima of the time series {[}27{]}.
 \end{itemize}
 
 Finally, we visualized the expected value of our selection of indices for different types of signals under different conditions of noise (see \textbf{Figure 8}). This confirmed that \emph{LL} was primarily driven by the noise intensity (which is expected, as they capture the variability of successive differences). The other indices appear capable of discriminating between the various types of signals (when the signal is not dominated by noise).
@@ -357,7 +357,7 @@ Finally, we visualized the expected value of our selection of indices for differ
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
 
-As the span and application of complexity science grows, a systematic approach to compare their ``performance'' becomes necessary to reinforce the clarity and structure of the field. The term \emph{performance} used here is to be understood in a relative sense, as any such endeavor faces the ``hard problem'' of complexity science: various objective properties of signals (e.g., short-term vs.~long-term variability, auto-correlation, information, randomness, Namdari \& Li, 2019; Xiong et al., 2017) participate in forming overarching concepts such as ``complex'' and ``chaotic''. Indices that are sensitive to some of these objective properties are thus conceptually linked through such overarching frameworks. However, it remains unclear how these high-level concepts transfer back, in a top-down fashion, into a combination of lower-level features. As such, it is conceptually complicated to benchmark complexity measures against ``objectively'' complex vs.~non-complex signals. In other words, while we are aware that different objective signal characteristics can contribute to the ``complexity'' of a signal, there is not a one-to-one correspondence between the latter and the former.
+As the span and application of complexity science grows, a systematic approach to compare their ``performance'' becomes necessary to reinforce the clarity and structure of the field. The term \emph{performance} used here is to be understood in a relative sense, as any such endeavor faces the ``hard problem'' of complexity science: various objective properties of signals (e.g., short-term vs.~long-term variability, auto-correlation, information, randomness {[}28,29{]}) participate in forming overarching concepts such as ``complex'' and ``chaotic''. Indices that are sensitive to some of these objective properties are thus conceptually linked through such overarching frameworks. However, it remains unclear how these high-level concepts transfer back, in a top-down fashion, into a combination of lower-level features. As such, it is conceptually complicated to benchmark complexity measures against ``objectively'' complex vs.~non-complex signals. In other words, while we are aware that different objective signal characteristics can contribute to the ``complexity'' of a signal, there is not a one-to-one correspondence between the latter and the former.
 
 To circumvent the aforementioned consideration, we adopted a paradigm where we generated different types of signals to which we systematically added distinct types - and amount - of perturbations. It should be noted that we did not seek to measure how complexity indices can discriminate between these signal types, nor did we attempt at mimicking real-life signals or scenarios. The goal was instead to generate enough variability to reliably map the relationships between the indices.
 
@@ -368,7 +368,7 @@ Given the increasing role of complexity science as a field and the sheer number 
 \hypertarget{acknowledgments}{%
 \subsection{Acknowledgments}\label{acknowledgments}}
 
-We would like to thank the contributors of NeuroKit2, as well as the people that developed and shared open-source code which helped implementing the complexity algorithms in NeuroKit2. In particular, the contributors and maintainers of packages such as \emph{nolds} (Schölzel, 2019), \emph{AntroPy} (Vallat, 2022), \emph{pyEntropy}, and \emph{EntropyHub} (Flood \& Grimm, 2021b).
+We would like to thank the contributors of NeuroKit2, as well as the people that developed and shared open-source code which helped implementing the complexity algorithms in NeuroKit2. In particular, the contributors and maintainers of packages such as \emph{nolds} {[}30{]}, \emph{AntroPy} {[}31{]}, \emph{pyEntropy}, and \emph{EntropyHub} {[}32{]}.
 
 The study was funded partly by the Presidential Post-Doctoral Award to DM and Ministry of Education Academic Research Fund Tier 2 Grant (Project No.: MOE2019-T2-1-019) to AC. The authors declare no conflict of interest, and the funding sponsors had no role in the design, execution, interpretation or writing of the study.
 
@@ -378,102 +378,134 @@ The study was funded partly by the Presidential Post-Doctoral Award to DM and Mi
 \subsection{References}\label{references}}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-azami2017refined}{}}%
-Azami, H., Rostaghi, M., Abásolo, D., \& Escudero, J. (2017). Refined composite multiscale dispersion entropy and its application to biomedical signals. \emph{IEEE Transactions on Biomedical Engineering}, \emph{64}(12), 2872--2879.
-
+\begin{CSLReferences}{0}{0}
 \leavevmode\vadjust pre{\hypertarget{ref-bassingthwaighte2013fractal}{}}%
-Bassingthwaighte, J. B., Liebovitch, L. S., \& West, B. J. (2013). \emph{Fractal physiology}. Springer.
-
-\leavevmode\vadjust pre{\hypertarget{ref-ehlers1995chaos}{}}%
-Ehlers, C. L. (1995). Chaos and complexity: Can it help us to understand mood and behavior? \emph{Archives of General Psychiatry}, \emph{52}(11), 960--964.
-
-\leavevmode\vadjust pre{\hypertarget{ref-esteller2001line}{}}%
-Esteller, R., Echauz, J., Tcheng, T., Litt, B., \& Pless, B. (2001). Line length: An efficient feature for seizure onset detection. \emph{2001 Conference Proceedings of the 23rd Annual International Conference of the IEEE Engineering in Medicine and Biology Society}, \emph{2}, 1707--1710.
-
-\leavevmode\vadjust pre{\hypertarget{ref-fadlallah2013weighted}{}}%
-Fadlallah, B., Chen, B., Keil, A., \& Príncipe, J. (2013). Weighted-permutation entropy: A complexity measure for time series incorporating amplitude information. \emph{Physical Review E}, \emph{87}(2), 022911.
-
-\leavevmode\vadjust pre{\hypertarget{ref-faini2021multiscale}{}}%
-Faini, A., Parati, G., \& Castiglioni, P. (2021). Multiscale assessment of the degree of multifractality for physiological time series. \emph{Philosophical Transactions of the Royal Society A}, \emph{379}(2212), 20200254.
-
-\leavevmode\vadjust pre{\hypertarget{ref-flood2021}{}}%
-Flood, M. W., \& Grimm, B. (2021a). EntropyHub: An open-source toolkit for entropic time series analysis. \emph{PLOS ONE}, \emph{16}(11), e0259448. \url{https://doi.org/10.1371/journal.pone.0259448}
-
-\leavevmode\vadjust pre{\hypertarget{ref-flood2021entropyhub}{}}%
-Flood, M. W., \& Grimm, B. (2021b). EntropyHub: An open-source toolkit for entropic time series analysis. \emph{Plos One}, \emph{16}(11), e0259448.
-
-\leavevmode\vadjust pre{\hypertarget{ref-fulcher2017}{}}%
-Fulcher, B. D., \& Jones, N. S. (2017). hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. \emph{Cell Systems}, \emph{5}, 527--531. \url{https://doi.org/10.1016/j.cels.2017.10.001}
-
-\leavevmode\vadjust pre{\hypertarget{ref-girault2022}{}}%
-Girault, J.-M., \& Menigot, S. (2022). Palindromic Vectors, Symmetropy and Symmentropy as Symmetry Descriptors of Binary Data. \emph{Entrpy}, \emph{24}(82). \url{https://doi.org/10.3390/e24010082}
-
-\leavevmode\vadjust pre{\hypertarget{ref-goetz2007}{}}%
-Goetz, S. J. (2007). Spatial Dynamics, Networks and Modelling ? Edited by Aura Reggiani and Peter Nijkamp. \emph{Papers in Regional Science}, \emph{86}(3), 523--524. \url{https://doi.org/10.1111/j.1435-5957.2007.00128.x}
-
-\leavevmode\vadjust pre{\hypertarget{ref-harris2020array}{}}%
-Harris, C. R., Millman, K. J., Walt, S. J. van der, Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., Kerkwijk, M. H. van, Brett, M., Haldane, A., Río, J. F. del, Wiebe, M., Peterson, P., \ldots{} Oliphant, T. E. (2020). Array programming with {NumPy}. \emph{Nature}, \emph{585}(7825), 357--362. \url{https://doi.org/10.1038/s41586-020-2649-2}
-
-\leavevmode\vadjust pre{\hypertarget{ref-hjorth1970eeg}{}}%
-Hjorth, B. (1970). EEG analysis based on time domain properties. \emph{Electroencephalography and Clinical Neurophysiology}, \emph{29}(3), 306--310.
-
-\leavevmode\vadjust pre{\hypertarget{ref-kalauzi2009extracting}{}}%
-Kalauzi, A., Bojić, T., \& Rakić, L. (2009). Extracting complexity waveforms from one-dimensional signals. \emph{Nonlinear Biomedical Physics}, \emph{3}(1), 1--11.
-
-\leavevmode\vadjust pre{\hypertarget{ref-kantelhardt2002multifractal}{}}%
-Kantelhardt, J. W., Zschiegner, S. A., Koscielny-Bunde, E., Havlin, S., Bunde, A., \& Stanley, H. E. (2002). Multifractal detrended fluctuation analysis of nonstationary time series. \emph{Physica A: Statistical Mechanics and Its Applications}, \emph{316}(1-4), 87--114.
+\CSLLeftMargin{1. }%
+\CSLRightInline{Bassingthwaighte, J.B.; Liebovitch, L.S.; West, B.J. \emph{Fractal Physiology}; Springer, 2013;}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lau2021brain}{}}%
-Lau, Z. J., Pham, T., Annabel, S., \& Makowski, D. (2021). \emph{Brain entropy, fractal dimensions and predictability: A review of complexity measures for EEG in healthy and neuropsychiatric populations}.
+\CSLLeftMargin{2. }%
+\CSLRightInline{Lau, Z.J.; Pham, T.; Annabel, S.; Makowski, D. Brain Entropy, Fractal Dimensions and Predictability: A Review of Complexity Measures for EEG in Healthy and Neuropsychiatric Populations. \textbf{2021}.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-parametersArticle}{}}%
-Lüdecke, D., Ben-Shachar, M., Patil, I., \& Makowski, D. (2020). Extracting, computing and exploring the parameters of statistical models using {R}. \emph{Journal of Open Source Software}, \emph{5}(53), 2445. \url{https://doi.org/10.21105/joss.02445}
+\leavevmode\vadjust pre{\hypertarget{ref-ehlers1995chaos}{}}%
+\CSLLeftMargin{3. }%
+\CSLRightInline{Ehlers, C.L. Chaos and Complexity: Can It Help Us to Understand Mood and Behavior? \emph{Archives of General Psychiatry} \textbf{1995}, \emph{52}, 960--964.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-seeArticle}{}}%
-Lüdecke, D., Patil, I., Ben-Shachar, M. S., Wiernik, B. M., Waggoner, P., \& Makowski, D. (2021). {see}: An {R} package for visualizing statistical models. \emph{Journal of Open Source Software}, \emph{6}(64), 3393. \url{https://doi.org/10.21105/joss.03393}
-
-\leavevmode\vadjust pre{\hypertarget{ref-correlationArticle}{}}%
-Makowski, D., Ben-Shachar, M., Patil, I., \& Lüdecke, D. (2020). Methods and algorithms for correlation analysis in {R}. \emph{Journal of Open Source Software}, \emph{5}(51), 2306. \url{https://doi.org/10.21105/joss.02306}
-
-\leavevmode\vadjust pre{\hypertarget{ref-modelbasedPackage}{}}%
-Makowski, D., Lüdecke, D., Ben-Shachar, M. S., \& Patil, I. (2022). \emph{{modelbased}: Estimation of model-based predictions, contrasts and means} (Version 0.7.2.1) {[}Computer software{]}. \url{https://CRAN.R-project.org/package=modelbased} (Original work published 2020)
-
-\leavevmode\vadjust pre{\hypertarget{ref-Makowski2021neurokit}{}}%
-Makowski, D., Pham, T., Lau, Z. J., Brammer, J. C., Lespinasse, F., Pham, H., Schölzel, C., \& Chen, S. H. A. (2021). {NeuroKit}2: A python toolbox for neurophysiological signal processing. \emph{Behavior Research Methods}, \emph{53}(4), 1689--1696. \url{https://doi.org/10.3758/s13428-020-01516-y}
-
-\leavevmode\vadjust pre{\hypertarget{ref-manis2018}{}}%
-Manis, G., Aktaruzzaman, M., \& Sassi, R. (2018). Low Computational Cost for Sample Entropy. \emph{Entropy}, \emph{20}(1), 61. \url{https://doi.org/10.3390/e20010061}
-
-\leavevmode\vadjust pre{\hypertarget{ref-bubblee2017}{}}%
-Manis, G., Aktaruzzaman, M., \& Sassi, R. (2017). Bubble entropy: An entropy almost free of parameters. \emph{IEEE Transactions on Biomedical Engineering}, \emph{64}(11), 2711--2718. \url{https://doi.org/10.1109/tbme.2017.2664105}
-
-\leavevmode\vadjust pre{\hypertarget{ref-mckinney2010data}{}}%
-McKinney, W.others. (2010). Data structures for statistical computing in python. \emph{Proceedings of the 9th Python in Science Conference}, \emph{445}, 51--56.
-
-\leavevmode\vadjust pre{\hypertarget{ref-namdari2019}{}}%
-Namdari, A., \& Li, Z. (Steven). (2019). A review of entropy measures for uncertainty quantification of stochastic processes. \emph{Advances in Mechanical Engineering}, \emph{11}(6), 168781401985735. \url{https://doi.org/10.1177/1687814019857350}
-
-\leavevmode\vadjust pre{\hypertarget{ref-roberts1999temporal}{}}%
-Roberts, S. J., Penny, W., \& Rezek, I. (1999). Temporal and spatial complexity measures for electroencephalogram based brain-computer interfacing. \emph{Medical \& Biological Engineering \& Computing}, \emph{37}(1), 93--98.
-
-\leavevmode\vadjust pre{\hypertarget{ref-scholzel2019nolds}{}}%
-Schölzel, C. (2019). \emph{Nonlinear measures for dynamical systems} (Version 0.5.2) {[}Computer software{]}. Zenodo. \url{https://doi.org/10.5281/zenodo.3814723}
-
-\leavevmode\vadjust pre{\hypertarget{ref-unakafov2014conditional}{}}%
-Unakafov, A. M., \& Keller, K. (2014). Conditional entropy of ordinal patterns. \emph{Physica D: Nonlinear Phenomena}, \emph{269}, 94--102.
-
-\leavevmode\vadjust pre{\hypertarget{ref-vallat2022antropy}{}}%
-Vallat, R. (2022). \emph{AntroPy: Entropy and complexity of (EEG) time-series in python}. GitHub. \url{https://github.com/raphaelvallat/antropy}
-
-\leavevmode\vadjust pre{\hypertarget{ref-xiong2017}{}}%
-Xiong, W., Faes, L., \& Ivanov, P. Ch. (2017). Entropy measures, entropy estimators, and their performance in quantifying complex dynamics: Effects of artifacts, nonstationarity, and long-range correlations. \emph{Physical Review E}, \emph{95}(6). \url{https://doi.org/10.1103/physreve.95.062114}
+\leavevmode\vadjust pre{\hypertarget{ref-goetz2007}{}}%
+\CSLLeftMargin{4. }%
+\CSLRightInline{Goetz, S.J. Spatial Dynamics, Networks and Modelling ? Edited by Aura Reggiani and Peter Nijkamp. \emph{Papers in Regional Science} \textbf{2007}, \emph{86}, 523--524, doi:\href{https://doi.org/10.1111/j.1435-5957.2007.00128.x}{10.1111/j.1435-5957.2007.00128.x}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-yang2013}{}}%
-Yang, A. C., \& Tsai, S.-J. (2013). Is mental illness complex? From behavior to brain. \emph{Progress in Neuro-Psychopharmacology and Biological Psychiatry}, \emph{45}, 253--257. \url{https://doi.org/10.1016/j.pnpbp.2012.09.015}
+\CSLLeftMargin{5. }%
+\CSLRightInline{Yang, A.C.; Tsai, S.-J. Is Mental Illness Complex? From Behavior to Brain. \emph{Progress in Neuro-Psychopharmacology and Biological Psychiatry} \textbf{2013}, \emph{45}, 253--257, doi:\href{https://doi.org/10.1016/j.pnpbp.2012.09.015}{10.1016/j.pnpbp.2012.09.015}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-azami2017refined}{}}%
+\CSLLeftMargin{6. }%
+\CSLRightInline{Azami, H.; Rostaghi, M.; Abásolo, D.; Escudero, J. Refined Composite Multiscale Dispersion Entropy and Its Application to Biomedical Signals. \emph{IEEE Transactions on Biomedical Engineering} \textbf{2017}, \emph{64}, 2872--2879.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-manis2018}{}}%
+\CSLLeftMargin{7. }%
+\CSLRightInline{Manis, G.; Aktaruzzaman, M.; Sassi, R. Low Computational Cost for Sample Entropy. \emph{Entropy} \textbf{2018}, \emph{20}, 61, doi:\href{https://doi.org/10.3390/e20010061}{10.3390/e20010061}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-flood2021}{}}%
+\CSLLeftMargin{8. }%
+\CSLRightInline{Flood, M.W.; Grimm, B. EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis. \emph{PLOS ONE} \textbf{2021}, \emph{16}, e0259448, doi:\href{https://doi.org/10.1371/journal.pone.0259448}{10.1371/journal.pone.0259448}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-fulcher2017}{}}%
+\CSLLeftMargin{9. }%
+\CSLRightInline{Fulcher, B.D.; Jones, N.S. Hctsa: A Computational Framework for Automated Time-Series Phenotyping Using Massive Feature Extraction. \emph{Cell Systems} \textbf{2017}, \emph{5}, 527--531, doi:\href{https://doi.org/10.1016/j.cels.2017.10.001}{10.1016/j.cels.2017.10.001}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Makowski2021neurokit}{}}%
+\CSLLeftMargin{10. }%
+\CSLRightInline{Makowski, D.; Pham, T.; Lau, Z.J.; Brammer, J.C.; Lespinasse, F.; Pham, H.; Schölzel, C.; Chen, S.H.A. {NeuroKit}2: A Python Toolbox for Neurophysiological Signal Processing. \emph{Behavior Research Methods} \textbf{2021}, \emph{53}, 1689--1696, doi:\href{https://doi.org/10.3758/s13428-020-01516-y}{10.3758/s13428-020-01516-y}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-harris2020array}{}}%
+\CSLLeftMargin{11. }%
+\CSLRightInline{Harris, C.R.; Millman, K.J.; Walt, S.J. van der; Gommers, R.; Virtanen, P.; Cournapeau, D.; Wieser, E.; Taylor, J.; Berg, S.; Smith, N.J.; et al. Array Programming with {NumPy}. \emph{Nature} \textbf{2020}, \emph{585}, 357--362, doi:\href{https://doi.org/10.1038/s41586-020-2649-2}{10.1038/s41586-020-2649-2}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mckinney2010data}{}}%
+\CSLLeftMargin{12. }%
+\CSLRightInline{McKinney, W. et al. Data Structures for Statistical Computing in Python. In Proceedings of the Proceedings of the 9th python in science conference; Austin, TX, 2010; Vol. 445, pp. 51--56.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-girault2022}{}}%
+\CSLLeftMargin{13. }%
+\CSLRightInline{Girault, J.-M.; Menigot, S. Palindromic Vectors, Symmetropy and Symmentropy as Symmetry Descriptors of Binary Data. \emph{Entrpy} \textbf{2022}, \emph{24}, doi:\href{https://doi.org/10.3390/e24010082}{10.3390/e24010082}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-correlationArticle}{}}%
+\CSLLeftMargin{14. }%
+\CSLRightInline{Makowski, D.; Ben-Shachar, M.; Patil, I.; Lüdecke, D. Methods and Algorithms for Correlation Analysis in {R}. \emph{JOSS} \textbf{2020}, \emph{5}, 2306, doi:\href{https://doi.org/10.21105/joss.02306}{10.21105/joss.02306}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-seeArticle}{}}%
+\CSLLeftMargin{15. }%
+\CSLRightInline{Lüdecke, D.; Patil, I.; Ben-Shachar, M.S.; Wiernik, B.M.; Waggoner, P.; Makowski, D. {see}: An {R} Package for Visualizing Statistical Models. \emph{Journal of Open Source Software} \textbf{2021}, \emph{6}, 3393, doi:\href{https://doi.org/10.21105/joss.03393}{10.21105/joss.03393}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-parametersArticle}{}}%
+\CSLLeftMargin{16. }%
+\CSLRightInline{Lüdecke, D.; Ben-Shachar, M.; Patil, I.; Makowski, D. Extracting, Computing and Exploring the Parameters of Statistical Models Using {R}. \emph{JOSS} \textbf{2020}, \emph{5}, 2445, doi:\href{https://doi.org/10.21105/joss.02445}{10.21105/joss.02445}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-modelbasedPackage}{}}%
+\CSLLeftMargin{17. }%
+\CSLRightInline{Makowski, D.; Lüdecke, D.; Ben-Shachar, M.S.; Patil, I. \emph{\href{https://CRAN.R-project.org/package=modelbased}{{modelbased}: Estimation of Model-Based Predictions, Contrasts and Means}}; 2022;}
+
+\leavevmode\vadjust pre{\hypertarget{ref-unakafov2014conditional}{}}%
+\CSLLeftMargin{18. }%
+\CSLRightInline{Unakafov, A.M.; Keller, K. Conditional Entropy of Ordinal Patterns. \emph{Physica D: Nonlinear Phenomena} \textbf{2014}, \emph{269}, 94--102.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-esteller2001line}{}}%
+\CSLLeftMargin{19. }%
+\CSLRightInline{Esteller, R.; Echauz, J.; Tcheng, T.; Litt, B.; Pless, B. Line Length: An Efficient Feature for Seizure Onset Detection. In Proceedings of the 2001 conference proceedings of the 23rd annual international conference of the IEEE engineering in medicine and biology society; IEEE, 2001; Vol. 2, pp. 1707--1710.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kalauzi2009extracting}{}}%
+\CSLLeftMargin{20. }%
+\CSLRightInline{Kalauzi, A.; Bojić, T.; Rakić, L. Extracting Complexity Waveforms from One-Dimensional Signals. \emph{Nonlinear biomedical physics} \textbf{2009}, \emph{3}, 1--11.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bubblee2017}{}}%
+\CSLLeftMargin{21. }%
+\CSLRightInline{Manis, G.; Aktaruzzaman, M.; Sassi, R. Bubble Entropy: An Entropy Almost Free of Parameters. \emph{IEEE Transactions on Biomedical Engineering} \textbf{2017}, \emph{64}, 2711--2718, doi:\href{https://doi.org/10.1109/tbme.2017.2664105}{10.1109/tbme.2017.2664105}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-fadlallah2013weighted}{}}%
+\CSLLeftMargin{22. }%
+\CSLRightInline{Fadlallah, B.; Chen, B.; Keil, A.; Príncipe, J. Weighted-Permutation Entropy: A Complexity Measure for Time Series Incorporating Amplitude Information. \emph{Physical Review E} \textbf{2013}, \emph{87}, 022911.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hjorth1970eeg}{}}%
+\CSLLeftMargin{23. }%
+\CSLRightInline{Hjorth, B. EEG Analysis Based on Time Domain Properties. \emph{Electroencephalography and clinical neurophysiology} \textbf{1970}, \emph{29}, 306--310.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-roberts1999temporal}{}}%
+\CSLLeftMargin{24. }%
+\CSLRightInline{Roberts, S.J.; Penny, W.; Rezek, I. Temporal and Spatial Complexity Measures for Electroencephalogram Based Brain-Computer Interfacing. \emph{Medical \& biological engineering \& computing} \textbf{1999}, \emph{37}, 93--98.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kantelhardt2002multifractal}{}}%
+\CSLLeftMargin{25. }%
+\CSLRightInline{Kantelhardt, J.W.; Zschiegner, S.A.; Koscielny-Bunde, E.; Havlin, S.; Bunde, A.; Stanley, H.E. Multifractal Detrended Fluctuation Analysis of Nonstationary Time Series. \emph{Physica A: Statistical Mechanics and its Applications} \textbf{2002}, \emph{316}, 87--114.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-faini2021multiscale}{}}%
+\CSLLeftMargin{26. }%
+\CSLRightInline{Faini, A.; Parati, G.; Castiglioni, P. Multiscale Assessment of the Degree of Multifractality for Physiological Time Series. \emph{Philosophical Transactions of the Royal Society A} \textbf{2021}, \emph{379}, 20200254.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-yang2020classification}{}}%
-Yang, J., Choudhary, G. I., Rahardja, S., \& Franti, P. (2020). Classification of interbeat interval time-series using attention entropy. \emph{IEEE Transactions on Affective Computing}.
+\CSLLeftMargin{27. }%
+\CSLRightInline{Yang, J.; Choudhary, G.I.; Rahardja, S.; Franti, P. Classification of Interbeat Interval Time-Series Using Attention Entropy. \emph{IEEE Transactions on Affective Computing} \textbf{2020}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-namdari2019}{}}%
+\CSLLeftMargin{28. }%
+\CSLRightInline{Namdari, A.; Li, Z.(Steven). A Review of Entropy Measures for Uncertainty Quantification of Stochastic Processes. \emph{Advances in Mechanical Engineering} \textbf{2019}, \emph{11}, 168781401985735, doi:\href{https://doi.org/10.1177/1687814019857350}{10.1177/1687814019857350}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-xiong2017}{}}%
+\CSLLeftMargin{29. }%
+\CSLRightInline{Xiong, W.; Faes, L.; Ivanov, P.Ch. Entropy Measures, Entropy Estimators, and Their Performance in Quantifying Complex Dynamics: Effects of Artifacts, Nonstationarity, and Long-Range Correlations. \emph{Physical Review E} \textbf{2017}, \emph{95}, doi:\href{https://doi.org/10.1103/physreve.95.062114}{10.1103/physreve.95.062114}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-scholzel2019nolds}{}}%
+\CSLLeftMargin{30. }%
+\CSLRightInline{Schölzel, C. \emph{\href{https://doi.org/10.5281/zenodo.3814723}{Nonlinear Measures for Dynamical Systems}}; Zenodo, 2019;}
+
+\leavevmode\vadjust pre{\hypertarget{ref-vallat2022antropy}{}}%
+\CSLLeftMargin{31. }%
+\CSLRightInline{Vallat, R. \emph{\href{https://github.com/raphaelvallat/antropy}{AntroPy: Entropy and Complexity of (EEG) Time-Series in Python}}; GitHub, 2022;}
+
+\leavevmode\vadjust pre{\hypertarget{ref-flood2021entropyhub}{}}%
+\CSLLeftMargin{32. }%
+\CSLRightInline{Flood, M.W.; Grimm, B. EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis. \emph{Plos one} \textbf{2021}, \emph{16}, e0259448.}
 
 \end{CSLReferences}
 

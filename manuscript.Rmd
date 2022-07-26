@@ -82,7 +82,7 @@ footnotelist      : no
 
 classoption       : "man"
 output            : papaja::apa6_pdf
-csl: utils/apa.csl
+csl: utils/mdpi.csl
 
 header-includes:
   - \usepackage[labelfont=bf, font={scriptsize, color=gray}]{caption}

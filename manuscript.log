@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.1)  20 JUL 2022 14:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.1)  26 JUL 2022 11:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -284,6 +284,187 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+)
+\cslhangindent=\skip74
+\csllabelwidth=\skip75
+\cslentryspacingunit=\skip76
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count287
+\calc@Bcount=\count288
+\calc@Adimen=\dimen179
+\calc@Bdimen=\dimen180
+\calc@Askip=\skip77
+\calc@Bskip=\skip78
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count289
+\calc@Cskip=\skip79
+) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2022/05/22 3.75 The Babel package
+\babel@savecnt=\count290
+\U@D=\dimen181
+\l@unhyphenated=\language3
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count291
+Package babel Info: You haven't specified a language. I'll use 'nil'
+(babel)             as the main language. Reported on input line 4360.
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/nil.ldf
+Language: nil 2022/05/22 3.75 Nil language
+\l@nil=\language4
+))
+\everypar=\toks25
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/locale/en/babel-english.tex)
+Package babel Info: Importing data for english
+(babel)             from babel-en.ini. Reported on input line 90.
+Package babel Info: Hyphen rules for 'english' set to \l@english
+(babel)             (\language0). Reported on input line 90.
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/was/upgreek.sty
+Package: upgreek 2003/02/12 v2.0 (WaS)
+Package upgreek Info: Using Euler Roman for upright Greek on input line 31.
+\symugrf@m=\mathgroup9
+LaTeX Font Info:    Overwriting symbol font `ugrf@m' in version `bold'
+(Font)                  U/eur/m/n --> U/eur/b/n on input line 38.
+) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip80
+\LTright=\skip81
+\LTpre=\skip82
+\LTpost=\skip83
+\LTchunksize=\count292
+\LTcapwidth=\dimen182
+\LT@head=\box54
+\LT@firsthead=\box55
+\LT@foot=\box56
+\LT@lastfoot=\box57
+\LT@gbox=\box58
+\LT@cols=\count293
+\LT@rows=\count294
+\c@LT@tables=\count295
+\c@LT@chunks=\count296
+\LT@p@ftn=\toks26
+) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip84
+\multirow@cntb=\count297
+\multirow@dima=\skip85
+\bigstrutjot=\dimen183
+) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen184
+\ar@mcellbox=\box59
+\extrarowheight=\dimen185
+\NC@list=\toks27
+\extratabsurround=\skip86
+\backup@length=\skip87
+\ar@cellbox=\box60
+)
+\TX@col@width=\dimen186
+\TX@old@table=\dimen187
+\TX@old@col=\dimen188
+\TX@target=\dimen189
+\TX@delta=\dimen190
+\TX@cols=\count298
+\TX@ftn=\toks28
+) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\TPTL@width=\skip88
+)
+\longtablewidth=\skip89
+Failed to patch abstract.
+Failed to patch title.
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xpatch/xpatch.sty (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2022-05-30 L3 programming layer (loader) 
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count299
+\l__pdf_internal_box=\box61
+))
+Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2022-05-30 L3 Experimental document command parser
+)) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2005/11/02 line numbers on paragraphs v4.41
+\linenopenalty=\count300
+\output=\toks29
+\linenoprevgraf=\count301
+\linenumbersep=\dimen191
+\linenumberwidth=\dimen192
+\c@linenumber=\count302
+\c@pagewiselinenumber=\count303
+\c@LN@truepage=\count304
+\c@internallinenumber=\count305
+\c@internallinenumbers=\count306
+\quotelinenumbersep=\dimen193
+\bframerule=\dimen194
+\bframesep=\dimen195
+\bframebox=\box62
+LaTeX Info: Redefining \\ on input line 3056.
+) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.sty
+Package: csquotes 2021-02-22 v5.2l context-sensitive quotations (JAW)
+\csq@reset=\count307
+\csq@gtype=\count308
+\csq@glevel=\count309
+\csq@qlevel=\count310
+\csq@maxlvl=\count311
+\csq@tshold=\count312
+\csq@ltx@everypar=\toks30
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.def
+File: csquotes.def 2021-02-22 v5.2l csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.cfg
+File: csquotes.cfg 
+)) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has section divisions on input line 51.
+\cftparskip=\skip90
+\cftbeforetoctitleskip=\skip91
+\cftaftertoctitleskip=\skip92
+\cftbeforepartskip=\skip93
+\cftpartnumwidth=\skip94
+\cftpartindent=\skip95
+\cftbeforesecskip=\skip96
+\cftsecindent=\skip97
+\cftsecnumwidth=\skip98
+\cftbeforesubsecskip=\skip99
+\cftsubsecindent=\skip100
+\cftsubsecnumwidth=\skip101
+\cftbeforesubsubsecskip=\skip102
+\cftsubsubsecindent=\skip103
+\cftsubsubsecnumwidth=\skip104
+\cftbeforeparaskip=\skip105
+\cftparaindent=\skip106
+\cftparanumwidth=\skip107
+\cftbeforesubparaskip=\skip108
+\cftsubparaindent=\skip109
+\cftsubparanumwidth=\skip110
+\cftbeforeloftitleskip=\skip111
+\cftafterloftitleskip=\skip112
+\cftbeforefigskip=\skip113
+\cftfigindent=\skip114
+\cftfignumwidth=\skip115
+\c@lofdepth=\count313
+\c@lotdepth=\count314
+\cftbeforelottitleskip=\skip116
+\cftafterlottitleskip=\skip117
+\cftbeforetabskip=\skip118
+\cfttabindent=\skip119
+\cfttabnumwidth=\skip120
+
+Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing out. on input line 1156.
+
 ) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2022-05-17 v7.00q Hypertext links for LaTeX
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
@@ -311,11 +492,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count287
+\c@section@level=\count315
 )
-\@linkdim=\dimen179
-\Hy@linkcounter=\count288
-\Hy@pagecounter=\count289
+\@linkdim=\dimen196
+\Hy@linkcounter=\count316
+\Hy@pagecounter=\count317
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2022-05-17 v7.00q Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -325,7 +506,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count290
+\Hy@SavedSpaceFactor=\count318
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2022-05-17 v7.00q Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -339,21 +520,21 @@ Package hyperref Info: Plain pages OFF on input line 4154.
 Package hyperref Info: Backreferencing OFF on input line 4159.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4385.
-\c@Hy@tempcnt=\count291
+\c@Hy@tempcnt=\count319
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4723.
-\XeTeXLinkMargin=\dimen180
+\XeTeXLinkMargin=\dimen197
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count292
-\Field@Width=\dimen181
-\Fld@charsize=\dimen182
+\Fld@menulength=\count320
+\Field@Width=\dimen198
+\Fld@charsize=\dimen199
 Package hyperref Info: Hyper figures OFF on input line 6001.
 Package hyperref Info: Link nesting OFF on input line 6006.
 Package hyperref Info: Hyper index ON on input line 6009.
@@ -367,9 +548,9 @@ LaTeX Info: Redefining \pageref on input line 6078.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count293
-\c@Item=\count294
-\c@Hfootnote=\count295
+\Hy@abspage=\count321
+\c@Item=\count322
+\c@Hfootnote=\count323
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
@@ -378,8 +559,8 @@ File: hpdftex.def 2022-05-17 v7.00q Hyperref driver for pdfTeX
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
-\Fld@listcount=\count296
-\c@bookmark@seq@number=\count297
+\Fld@listcount=\count324
+\c@bookmark@seq@number=\count325
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
@@ -387,186 +568,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
 )
-\Hy@SectionHShift=\skip74
-)
-\cslhangindent=\skip75
-\csllabelwidth=\skip76
-\cslentryspacingunit=\skip77
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count298
-\calc@Bcount=\count299
-\calc@Adimen=\dimen183
-\calc@Bdimen=\dimen184
-\calc@Askip=\skip78
-\calc@Bskip=\skip79
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count300
-\calc@Cskip=\skip80
-) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2022/05/22 3.75 The Babel package
-\babel@savecnt=\count301
-\U@D=\dimen185
-\l@unhyphenated=\language3
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@readstream=\read2
-\bbl@dirlevel=\count302
-Package babel Info: You haven't specified a language. I'll use 'nil'
-(babel)             as the main language. Reported on input line 4360.
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/nil.ldf
-Language: nil 2022/05/22 3.75 Nil language
-\l@nil=\language4
-))
-\everypar=\toks25
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/locale/en/babel-english.tex)
-Package babel Info: Importing data for english
-(babel)             from babel-en.ini. Reported on input line 100.
-Package babel Info: Hyphen rules for 'english' set to \l@english
-(babel)             (\language0). Reported on input line 100.
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/was/upgreek.sty
-Package: upgreek 2003/02/12 v2.0 (WaS)
-Package upgreek Info: Using Euler Roman for upright Greek on input line 31.
-\symugrf@m=\mathgroup9
-LaTeX Font Info:    Overwriting symbol font `ugrf@m' in version `bold'
-(Font)                  U/eur/m/n --> U/eur/b/n on input line 38.
-) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip81
-\LTright=\skip82
-\LTpre=\skip83
-\LTpost=\skip84
-\LTchunksize=\count303
-\LTcapwidth=\dimen186
-\LT@head=\box54
-\LT@firsthead=\box55
-\LT@foot=\box56
-\LT@lastfoot=\box57
-\LT@gbox=\box58
-\LT@cols=\count304
-\LT@rows=\count305
-\c@LT@tables=\count306
-\c@LT@chunks=\count307
-\LT@p@ftn=\toks26
-) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
-Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
-) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
-Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip85
-\multirow@cntb=\count308
-\multirow@dima=\skip86
-\bigstrutjot=\dimen187
-) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/tabularx.sty
-Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
-Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen188
-\ar@mcellbox=\box59
-\extrarowheight=\dimen189
-\NC@list=\toks27
-\extratabsurround=\skip87
-\backup@length=\skip88
-\ar@cellbox=\box60
-)
-\TX@col@width=\dimen190
-\TX@old@table=\dimen191
-\TX@old@col=\dimen192
-\TX@target=\dimen193
-\TX@delta=\dimen194
-\TX@cols=\count309
-\TX@ftn=\toks28
-) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
-Package: threeparttablex 2013/07/23 v0.3 by daleif
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
-Package: environ 2014/05/04 v0.3 A new way to define environments
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
-Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
-))
-\TPTL@width=\skip89
-)
-\longtablewidth=\skip90
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xpatch/xpatch.sty (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2022-05-30 L3 programming layer (loader) 
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count310
-\l__pdf_internal_box=\box61
-))
-Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2022-05-30 L3 Experimental document command parser
-)) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lineno/lineno.sty
-Package: lineno 2005/11/02 line numbers on paragraphs v4.41
-\linenopenalty=\count311
-\output=\toks29
-\linenoprevgraf=\count312
-\linenumbersep=\dimen195
-\linenumberwidth=\dimen196
-\c@linenumber=\count313
-\c@pagewiselinenumber=\count314
-\c@LN@truepage=\count315
-\c@internallinenumber=\count316
-\c@internallinenumbers=\count317
-\quotelinenumbersep=\dimen197
-\bframerule=\dimen198
-\bframesep=\dimen199
-\bframebox=\box62
-LaTeX Info: Redefining \\ on input line 3056.
-) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.sty
-Package: csquotes 2021-02-22 v5.2l context-sensitive quotations (JAW)
-\csq@reset=\count318
-\csq@gtype=\count319
-\csq@glevel=\count320
-\csq@qlevel=\count321
-\csq@maxlvl=\count322
-\csq@tshold=\count323
-\csq@ltx@everypar=\toks30
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.def
-File: csquotes.def 2021-02-22 v5.2l csquotes generic definitions (JAW)
-)
-Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
-Package csquotes Info: ... configuration file loaded successfully.
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.cfg
-File: csquotes.cfg 
-)) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tocloft/tocloft.sty
-Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
-Package tocloft Info: The document has section divisions on input line 51.
-\cftparskip=\skip91
-\cftbeforetoctitleskip=\skip92
-\cftaftertoctitleskip=\skip93
-\cftbeforepartskip=\skip94
-\cftpartnumwidth=\skip95
-\cftpartindent=\skip96
-\cftbeforesecskip=\skip97
-\cftsecindent=\skip98
-\cftsecnumwidth=\skip99
-\cftbeforesubsecskip=\skip100
-\cftsubsecindent=\skip101
-\cftsubsecnumwidth=\skip102
-\cftbeforesubsubsecskip=\skip103
-\cftsubsubsecindent=\skip104
-\cftsubsubsecnumwidth=\skip105
-\cftbeforeparaskip=\skip106
-\cftparaindent=\skip107
-\cftparanumwidth=\skip108
-\cftbeforesubparaskip=\skip109
-\cftsubparaindent=\skip110
-\cftsubparanumwidth=\skip111
-\cftbeforeloftitleskip=\skip112
-\cftafterloftitleskip=\skip113
-\cftbeforefigskip=\skip114
-\cftfigindent=\skip115
-\cftfignumwidth=\skip116
-\c@lofdepth=\count324
-\c@lotdepth=\count325
-\cftbeforelottitleskip=\skip117
-\cftafterlottitleskip=\skip118
-\cftbeforetabskip=\skip119
-\cfttabindent=\skip120
-\cfttabnumwidth=\skip121
-
-Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing out. on input line 1156.
-
+\Hy@SectionHShift=\skip121
 )
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
@@ -629,13 +631,7 @@ LaTeX Font Info:    ... okay on input line 214.
 
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-(c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/apa6/config/APAamerican.txt
@@ -695,13 +691,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 324.
 (c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [9]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+) [9] [10] [11] [12] [13]
+Underfull \hbox (badness 1226) in paragraph at lines 396--396
+[]\T1/lmr/m/n/12 Goetz, S.J. Spa-tial Dy-nam-ics, Net-works and Mod-elling ? Edited by Aura
+ []
 
-[10] [11]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[12] [13]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [14]
@@ -711,7 +706,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [16] [17] AED endfloat: Processing end Figures and Tables (./manuscript.fff
-<./figures/signals-1.pdf, id=198, 722.7pt x 1156.32pt>
+<./figures/signals-1.pdf, id=206, 722.7pt x 1156.32pt>
 File: ./figures/signals-1.pdf Graphic file (type pdf)
 <use ./figures/signals-1.pdf>
 Package pdftex.def Info: ./figures/signals-1.pdf  used on input line 5.
@@ -719,17 +714,17 @@ Package pdftex.def Info: ./figures/signals-1.pdf  used on input line 5.
 
 LaTeX Warning: Float too large for page by 57.16585pt on input line 7.
 
-<./figures/time-1.pdf, id=199, 1445.4pt x 903.375pt>
+<./figures/time-1.pdf, id=207, 1445.4pt x 903.375pt>
 File: ./figures/time-1.pdf Graphic file (type pdf)
 <use ./figures/time-1.pdf>
 Package pdftex.def Info: ./figures/time-1.pdf  used on input line 12.
 (pdftex.def)             Requested size: 469.74944pt x 293.5934pt.
-<./figures/correlation-1.pdf, id=200, 1156.32pt x 1084.05pt>
+<./figures/correlation-1.pdf, id=208, 1156.32pt x 1084.05pt>
 File: ./figures/correlation-1.pdf Graphic file (type pdf)
 <use ./figures/correlation-1.pdf>
 Package pdftex.def Info: ./figures/correlation-1.pdf  used on input line 19.
 (pdftex.def)             Requested size: 469.75385pt x 440.39424pt.
-<./figures/loadings-1.pdf, id=201, 867.24pt x 1300.86pt>
+<./figures/loadings-1.pdf, id=209, 867.24pt x 1300.86pt>
 File: ./figures/loadings-1.pdf Graphic file (type pdf)
 <use ./figures/loadings-1.pdf>
 Package pdftex.def Info: ./figures/loadings-1.pdf  used on input line 26.
@@ -737,43 +732,43 @@ Package pdftex.def Info: ./figures/loadings-1.pdf  used on input line 26.
 
 LaTeX Warning: Float too large for page by 57.1857pt on input line 28.
 
-<./figures/ggm-1.pdf, id=202, 939.51pt x 939.51pt>
+<./figures/ggm-1.pdf, id=210, 939.51pt x 939.51pt>
 File: ./figures/ggm-1.pdf Graphic file (type pdf)
 <use ./figures/ggm-1.pdf>
 Package pdftex.def Info: ./figures/ggm-1.pdf  used on input line 33.
 (pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
-<./figures/clustering-1.pdf, id=203, 967.615pt x 967.615pt>
+<./figures/clustering-1.pdf, id=211, 967.615pt x 967.615pt>
 File: ./figures/clustering-1.pdf Graphic file (type pdf)
 <use ./figures/clustering-1.pdf>
 Package pdftex.def Info: ./figures/clustering-1.pdf  used on input line 40.
 (pdftex.def)             Requested size: 469.75043pt x 469.75043pt.
-<./figures/varexplained-1.pdf, id=204, 722.7pt x 505.89pt>
+<./figures/varexplained-1.pdf, id=212, 722.7pt x 505.89pt>
 File: ./figures/varexplained-1.pdf Graphic file (type pdf)
 <use ./figures/varexplained-1.pdf>
 Package pdftex.def Info: ./figures/varexplained-1.pdf  used on input line 47.
 (pdftex.def)             Requested size: 469.76045pt x 328.8323pt.
-<./figures/models-1.pdf, id=205, 1011.78pt x 505.89pt>
+<./figures/models-1.pdf, id=213, 1011.78pt x 505.89pt>
 File: ./figures/models-1.pdf Graphic file (type pdf)
 <use ./figures/models-1.pdf>
 Package pdftex.def Info: ./figures/models-1.pdf  used on input line 54.
 (pdftex.def)             Requested size: 469.76266pt x 234.88132pt.
 ) [18 <./figures/signals-1.pdf>] [19 <./figures/time-1.pdf>] [20 <./figures/correlation-1.pdf>] [21 <./figures/loadings-1.pdf>] [22 <./figures/ggm-1.pdf>] [23 <./figures/clustering-1.pdf>] [24 <./figures/varexplained-1.pdf>] [25 <./figures/models-1.pdf>] (./manuscript.aux)
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
-(rerunfilecheck)             Checksum: 645DA7CA18F3CEF0A32AB48B6BE32E97;1401.
+(rerunfilecheck)             Checksum: B20B0EC626574B181DAEE2382085FC56;2150.
  ) 
 Here is how much of TeX's memory you used:
- 16393 strings out of 480253
- 271334 string characters out of 5892691
- 582606 words of memory out of 5000000
- 33923 multiletter control sequences out of 15000+600000
+ 16348 strings out of 480253
+ 270176 string characters out of 5892691
+ 581044 words of memory out of 5000000
+ 33882 multiletter control sequences out of 15000+600000
  520119 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 70i,11n,77p,2249b,547s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 70i,11n,77p,1497b,547s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}<c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/domma/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on manuscript.pdf (25 pages, 2227652 bytes).
+Output written on manuscript.pdf (25 pages, 2227576 bytes).
 PDF statistics:
- 385 PDF objects out of 1000 (max. 8388607)
- 316 compressed objects within 4 object streams
+ 393 PDF objects out of 1000 (max. 8388607)
+ 324 compressed objects within 4 object streams
  91 named destinations out of 1000 (max. 500000)
- 129 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 145 words of extra memory for PDF output out of 10000 (max. 10000000)
 
