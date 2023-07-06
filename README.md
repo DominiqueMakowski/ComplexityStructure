@@ -1,7 +1,9 @@
 
 # The Structure of Chaos: An Empirical Comparison of Fractal Physiology Complexity Indices using NeuroKit2
 
-- See the open-access [**preprint**](https://psyarxiv.com/v5tqw/).
+Supplementary Materials for [Makowski et al. (2022)](https://www.mdpi.com/1099-4300/24/8/1036).
+
+- See the open-access [**paper**](https://www.mdpi.com/1099-4300/24/8/1036).
 - Data generation [**script**](make_data.py)
 - Data analysis [**script**](analysis.Rmd)
 
